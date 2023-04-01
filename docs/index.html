@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dovecot-Certificate-Interface</title> <!------------------------------------>
+    <meta name="description" content="This panel is to control Domain Certificates Configuration inside Dovecot. So you can have valid SSL Connections to single Domains with your mail client. We wish you the best, if you encounter errors visist www.bugfish.eu!"> <!------------------------------------>
+    <meta name="author" content="Bugfish">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link rel="canonical" href="https://bugfishtm.github.io/Dovecot-Certificate-Interface" />
+	<meta property="og:title" content="Dovecot-Certificate-Interface" />
+	<meta property="og:url" content="https://bugfishtm.github.io/Dovecot-Certificate-Interface" />
+	<meta property="og:image" content="./meta.png" />
+	<style>
+		html { font-size: 62.5%; background: url(bg.jpg); background-size:100%;}
+		body { font-size: 1.5em; line-height: 1.6; font-weight: 400;font-family: "Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #FFFFFF; max-width:800px;margin:auto; background: #121212;}
+		header {  background: #242424; padding: 15px;   color:#FFFFFF; }
+
+		ul.main-menu { margin: 0;padding: 0;display: flex;flex-wrap: wrap;justify-content: left;list-style: none;}
+		ul.main-menu li a {margin-right:20px;font-size:2.0rem; border-bottom: solid transparent 3px; color:#cfd2da;}
+		ul.main-menu li a:hover {color:#FFFFFF;}
+		ul.main-menu li a.active { color:#FFFFFF; border-bottom-color:#ff5707;}
+
+		a { font-weight: normal; text-decoration: none;  color:#ff5707;}
+		a:hover {color: white !important;}
+		a:focus {outline: thin dotted;}
+
+		h1 {  margin-top: 0;margin-bottom: 2rem;font-weight: 300;text-rendering: optimizeLegibility;line-height: 1;font-size: 3.6rem; line-height: 1.25; letter-spacing: -.1rem; color:#ff5707; }
+		h2 { font-size: 18px; padding-bottom: 0px; color:#ffffff; }
+
+		.inner { padding: 15px; }
+		#headertitle { text-align: center; width: 100; font-weight: bold; }
+		.inner_section table { width: 100%;}
+		.inner_section hr { border-color: #242424;  }
+		.inner_section th { background: #454545;  }
+		.inner_section tr, .inner_section td { border-top: 2px solid #242424; text-align: left; }
+		.inner_section tr:hover { background:#343434; color: white;  }
+		iframe{ width: 100%; margin-bottom: -5px; }
+		footer{ background: #242424; bottom: 0px; width: 100%; max-width: 800px; padding: 15px;box-sizing: border-box; text-align: center; color:#FFFFFF;}
+	</style>
+  </head>
+  <body>
+<img src="logo.png" style="width: 100%; margin-bottom: -7px;">
+    <header id="header">
+	  
+      <h1>Dovecot-Certificate-Interface</h1> <!------------------------------------>
+      
+      <ul class="main-menu">
+        <li><a href="../">Home</a></li>
+        <li><a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" target="_blank">Github</a></li> <!------------------------------------>
+        <li><a href="https://bugfish-fs.000webhostapp.com/impressum" target="_blank">Impressum</a></li>
+        <li><a href="https://bugfish-fs.000webhostapp.com/privacy" target="_blank">Privacy</a></li>
+      </ul>                 
+    </header>
+   
+    <div>
+             <div class="inner" style="text-align: left;">
+			 
+			 
+			 
+<h1 id="dovecot-certificate-interface">Dovecot-Certificate-Interface</h1>
+<h2 id="general-functionality-informations">General Functionality Informations</h2>
+<h3 id="about-this-software">About this Software</h3>
+<p>This software is to configure Dovecot per Domain SSL Certificates.<br>So you can login to different Domains with a Mail Client on your Server
+with a valid certificate!</p>
+<p>This software is to connect ssl certs with Domains. There is a cronjob here to make this script runable with ispconfig, all will be automated.
+But Its not focused for ispconfig.</p>
+<h3 id="user-management">User Management</h3>
+<p>This software comes with usermanagement in it. You can create/edit/delete users and assign different permissions of different areas to them. U</p>
+<h2 id="installation">Installation</h2>
+<p>As last step of Installation please take a Look at the configuration/settings page of your deployed instance. If you have configured all needed settings in settings.php correctly, there should be no need to worry, as I am using this software in a lot of productive areas. But no guarantee..</p>
+<h3 id="deployment">Deployment</h3>
+<ul>
+<li>Upload the files in the &quot;source&quot; directory of this repository to your webspace and check the settings.sample.php file. It is mandatory and important that you check the settings in that file. In the Settings.php file you will also set the MySQL Login Data. Rename the settings.sample.php to settings.php after that!</li>
+<li>You dont need to install any SQL Tables for yourself. The websoftware will automatically install all needed tanbles, if they are not present at the time the website will be opened up. An initial user will created. You can see the login credentials of the initial created user at the end of this manual.</li>
+<li>Setup the Cronjob as described below. Without the cronjob, no Dovecot Configuration will be written.</li>
+</ul>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li>Tested on Ubuntu and Debian (may work on other systems, but untested)</li>
+<li>Root Permissions for Cronjob on System</li>
+<li>Apache2 Webserver with PHP 7/8 Support</li>
+<li>Apach2 Modules: rewrite</li>
+<li>PHP Modules: mysql, curl, intl, mbstring, zip, gd</li>
+<li>MySQL Database Connection and user to connect with</li>
+<li>Open Port 80/442 (TCP) [Webinterface]</li>
+</ul>
+<h3 id="cronjobs-mandatory-">Cronjobs (Mandatory)</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Interval</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PATH_TO_WEBROOT/_cronjon/daily.php</td>
+<td>daily</td>
+<td>Resets Blacklisted IPs (Optional but Recommended)</td>
+</tr>
+<tr>
+<td>PATH_TO_WEBROOT/_cronjon/sync.php;</td>
+<td>30 min interval</td>
+<td>Write the in settings.php specified dovecot config file!</td>
+</tr>
+<tr>
+<td>PATH_TO_WEBROOT/_cronjon/ispconfig_fetch.php;</td>
+<td>10 min interval</td>
+<td>Fetch SSL Certs and Domains out of ISPConfig and Write into Database. (OPTIONAL AND ONLY FOR ISPCONFIG USERS!)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-etc-dovecot-dovecot-conf">/etc/dovecot/dovecot.conf</h3>
+<p>Add this to the end of the file</p>
+<pre><code>!include_try dovecotcertinterface<span class="hljs-selector-class">.certs</span><span class="hljs-selector-class">.conf</span>
+</code></pre><h2 id="issues">Issues</h2>
+<p>If you encounter issues or have questions using this software, do not hesitate write us at our Forum on www.bugfish.eu/forum !</p>
+<h2 id="default-login-for-webinterface">Default Login for Webinterface</h2>
+<p>Username: admin<br>Passwort: changeme</p>
+<hr>
+<p>more at www.bugfish.eu<br>Made by Jan-Maurice Dahlmanns</p>
+			 
+			 
+			 
+			 
+			 
+			 
+</div>
+
+
+			  <!------------------------------------>
+
+			  <header id="headertitle"><h2>CHILLOUT</h2></header>
+				<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/kJqgfFzMX40" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				
+			  <header id="headertitle"><h2>GITHUB REPOSITORIES</h2></header><div class="inner">
+			  <ul>		
+				<li><a href="https://github.com/bugfishtm/bugfish-hive" rel="noopener" target="_blank">Bugfish-Hive</a></li>			  
+				<li><a href="https://github.com/bugfishtm/bugfish-framework" rel="noopener" target="_blank">Bugfish-Framework</a></li>
+				<li><a href="https://github.com/bugfishtm/Bind9-Web-Manager" rel="noopener" target="_blank">Bind9 Web Manager</a></li>
+				<li><a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" rel="noopener" target="_blank">Dovecot-Certificate-Interface</a></li>
+				<li><a href="https://github.com/bugfishtm/Android-Web-App-Example" rel="noopener" target="_blank">Android Web App Example</a></li>
+				<li><a href="https://github.com/bugfishtm/Mail-Relaying-over-DNS" rel="noopener" target="_blank">Mail Relaying over DNS</a></li>
+				<li><a href="https://github.com/bugfishtm/bugfishtm.github.io" rel="noopener" target="_blank">This Github Page</a></li>
+			  </ul></div>
+			<header id="headertitle"><h2>LEVANT</h2></header>
+				<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/H_N1EY-ILOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+			  
+			  <header id="headertitle"><h2>MY PROJECT PAGES</h2></header><div class="inner">
+			  <ul>
+				<li><a href="https://bugfish.eu" target="_blank" rel="noopener">Website</a></li>
+				<li><a href="https://bugfishtm.blogspot.com/" target="_blank" rel="noopener">Blog</a></li>
+				<li><a href="https://bugfish-fs.000webhostapp.com/" target="_blank" rel="noopener">Fallback Website</a></li>
+				<li><a href="https://www.youtube.com/c/bugfishtm" target="_blank" rel="noopener">Youtube</a></li>
+				<li><a href="https://www.youtube.com/channel/UC3ikaOiJwdKRfzsKDiFUSyA" target="_blank" rel="noopener">Youtube Artist Account</a></li>
+				<li><a href="https://github.com/bugfishtm" target="_blank" rel="noopener">Github</a></li>
+				<li><a href="https://pixabay.com/de/users/bugfish-15886987/" target="_blank" rel="noopener">Pixabay</a></li>
+				<li><a href="https://bugfish.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a></li>
+				<li><a href="https://open.spotify.com/artist/22t8XUzb2rVqKywyCaS36k" rel="noopener" target="_blank">Spotify</a></li>
+				<li><a href="https://www.dailymotion.com/bugfish" target="_blank" rel="noopener">Dailymotion</a></li>
+				<li><a href="https://deadseven.bugfish.eu" target="_blank" rel="noopener">Deadseven</a></li>
+				<li><a href="https://www.patreon.com/bugfish" target="_blank" rel="noopener" >Patreon</a></li>
+				<li><a href="https://www.deviantart.com/bxgfxsh" target="_blank" rel="noopener">DeviantArt</a></li>
+				<li><a href="https://jan-maurice-dahlmanns.de" target="_blank" rel="noopener">About Me</a></li>
+			  </ul></div>
+			  <header id="headertitle"><h2>PHONK</h2></header>
+				<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/M9E_S-T-jlQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>	  
+    </div>
+    <footer>  Jan-Maurice Dahlmanns [<a href="https://www.bugfish.eu" target="_blank">Bugfish</a>] - Kattowitzerstraße 2b - 41065 Mönchengladbach - contact@bugfish.eu </footer>
+  </body>
+</html>
