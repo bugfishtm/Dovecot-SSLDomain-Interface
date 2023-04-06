@@ -8,7 +8,7 @@
 		global $log_output;
 		$finaltext = $text;
 		echo $text;
-		while(strpos($finaltext, "\r\n") != false) { $finaltext = str_replace("\r\n", "<br />", $finaltext); }
+		while(strpos($finaltext, "\r\n") !== false) { $finaltext = str_replace("\r\n", "<br />", $finaltext); }
 		if(substr($finaltext, 0, 2) == "OK") { $finaltext = "<font color='lime'>".$finaltext."</font>"; }
 		elseif(substr($finaltext, 0, 2) == "FI") { $finaltext = "<font color='yellow'>".$finaltext."</font>"; }
 		elseif(substr($finaltext, 0, 2) == "ER") { $finaltext = "<font color='red'>".$finaltext."</font>"; }
@@ -19,44 +19,52 @@
 
 	# --------------------------------------------------------------------------------------
 	internal_cronlog("START: Writing Dovecot Configuration File "._CRON_DOVECOT_FILE_."! \r\n");
-	$domains = $mysql->select("SELECT * FROM "._TABLE_DOMAIN_." WHERE exclude = 0", true);
+	$domains = $mysql->select("SELECT * FROM "._TABLE_DOMAIN_."", true);
 	if(is_array($domains)) {
-		// Write the dnshttp.conf.local FILE
 		$conf_buildstring = "";
 		foreach($domains as $key => $value) {
+			if($value["exclude"] == 1) { $mysql->query("UPDATE "._TABLE_DOMAIN_." SET status = 1 WHERE id = \"".$value["id"]."\";"); internal_cronlog("WARN: Domain is disabled: ".trim($value["domain"])." \r\n"); continue; }			
 			$validcert = true;
 			$mysql->query("UPDATE "._TABLE_DOMAIN_." SET status = 2 WHERE id = \"".$value["id"]."\";");
-			if(!file_exists(trim($value["cert"]))) { $mysql->query("UPDATE "._TABLE_DOMAIN_." SET status = 0 WHERE id = \"".$value["id"]."\";"); internal_cronlog("ERROR: ".trim($value["domain"])." with ERR_Cert:".trim($value["cert"])."\r\n"); continue; }
-			if(!file_exists(trim($value["key"]))) { $mysql->query("UPDATE "._TABLE_DOMAIN_." SET status = 0 WHERE id = \"".$value["id"]."\";"); internal_cronlog("ERROR: ".trim($value["domain"])." with ERR_Key:".trim($value["key"])."\r\n"); continue; }
+			if(!file_exists(trim($value["cert"]))) { $mysql->query("UPDATE "._TABLE_DOMAIN_." SET status = 0 WHERE id = \"".$value["id"]."\";"); internal_cronlog("ERROR: Certificate File not Found for ".trim($value["domain"])." at ".trim($value["cert"])." \r\n"); continue; }
+			if(!file_exists(trim($value["key"]))) { $mysql->query("UPDATE "._TABLE_DOMAIN_." SET status = 0 WHERE id = \"".$value["id"]."\";"); internal_cronlog("ERROR: Key File not Found for ".trim($value["domain"])." at ".trim($value["key"])." \r\n"); continue; }
 			
-			if($validcert) { 
-			$mysql->query("UPDATE "._TABLE_DOMAIN_." SET status = 1 WHERE id = \"".$value["id"]."\";");
-			internal_cronlog("OK: ".trim($value["domain"])." with Ok_Cert:".trim($value["cert"])." AND Ok_Key:".trim($value["key"])."\r\n");
-			$conf_buildstring .= '
+			$mod_key =  @shell_exec("openssl rsa -modulus -noout -in ".$value["key"]." | openssl md5");
+			$mod_key =  substr($mod_key, strpos($mod_key, "=") +1);
+			$mod_key =  trim($mod_key);	
 			
-local_name '.trim($value["domain"]).' {
-	ssl_cert = <'.trim($value["cert"]).'
-	ssl_key = <'.trim($value["key"]).'
-}
-
-';			
+			$mod_crt =  @shell_exec("openssl x509  -modulus -noout -in ".$value["cert"]." | openssl md5");
+			$mod_crt =  substr($mod_crt, strpos($mod_crt, "=") +1);		
+			$mod_crt =  trim($mod_crt);		
+			
+			if(!is_string($mod_crt) OR !is_string($mod_key) OR $mod_crt != $mod_key) {
+				internal_cronlog("ERROR: SSL Cert and Key Validation Check ".trim($value["domain"])." \r\n"); continue;
 			}
-		}	
-
-		
+			
+			//if() {
+			//}
+			if($validcert) { 
+				$mysql->query("UPDATE "._TABLE_DOMAIN_." SET status = 1 WHERE id = \"".$value["id"]."\";");
+				internal_cronlog("OK: Valid Domain added:".trim($value["domain"])."\r\n");
+				$conf_buildstring .= "\r\nlocal_name ".trim($value["domain"])." {\r\n\tssl_cert = <".trim($value["cert"])."\r\n\tssl_key = <".trim($value["key"])."\r\n}\r\n\r\n";	
+			}
+		}
 		if(file_exists(_CRON_DOVECOT_FILE_)) { @unlink(_CRON_DOVECOT_FILE_); }
 		file_put_contents(_CRON_DOVECOT_FILE_, $conf_buildstring);
+		internal_cronlog("INFO: Dovecot Config File Creation of "._CRON_DOVECOT_FILE_." done!\r\n");	
+	} else {
+		internal_cronlog("INFO: No Domains Found in Database, Writing Empty File\r\n");
+		if(file_exists(_CRON_DOVECOT_FILE_)) { @unlink(_CRON_DOVECOT_FILE_); }
+		file_put_contents(_CRON_DOVECOT_FILE_, "");
+		internal_cronlog("INFO: Cleanup Done!\r\n");		
 	}
 		
-		
-	internal_cronlog("FINISHED: LAST OPERATION\r\n\r\n"); 
 	# --------------------------------------------------------------------------------------
-		internal_cronlog("OK: systemctl restart dovecot;\r\n");
-		@shell_exec("systemctl restart dovecot; ");
-	
-	internal_cronlog("FINISHED: LAST OPERATION\r\n\r\n"); 
+	internal_cronlog("INFO: Executing Commmand: systemctl restart dovecot;\r\n");
+	echo @shell_exec("systemctl restart dovecot; ");
 	# --------------------------------------------------------------------------------------
 	// Logfile Message
-	internal_cronlog("OK: Execution Done at ".date("Y-m-d H:m:i")."");
+	$log	=	new x_class_log($mysql, _TABLE_LOG_, "sync");
+	internal_cronlog("OK: Execution Done at ".date("Y-m-d H:m:i")."\r\n\r\n");
 	$log->info($log_output);
 ?>

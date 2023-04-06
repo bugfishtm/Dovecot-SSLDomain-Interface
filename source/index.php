@@ -9,8 +9,16 @@
 	# Include Settings
 	if(file_exists("./settings.php")) {  require_once("./settings.php"); } else {echo "No settings.php found!<br />Please change settings.sample.php and rename this file to settings.php after that!"; exit(); }
 	# Load CSRF Class
-	if(is_numeric(_CSRF_VALID_LIMIT_TIME_)) { $csrf = new x_class_csrf(_COOKIES_, _CSRF_VALID_LIMIT_TIME_); }
-		else { $csrf = new x_class_csrf(_COOKIES_, 300); } ?>
+	$csrf = new x_class_csrf(_COOKIES_, _CSRF_VALID_LIMIT_TIME_);
+	# Logout on Request
+	if($user->loggedIn) {			
+		switch($_GET["site"]) {	
+			case "logout": $user->logout(); Header("Location: ./"); x_eventBoxPrep("You have been logged out!", "ok", _COOKIES_); exit(); break;
+		};
+	}
+	# Display Cookie Banner Pre Post Function
+	x_cookieBanner_Pre(_COOKIES_);	
+	?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html version="-//W3C//DTD XHTML 1.1//EN"
@@ -20,7 +28,7 @@
                           http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd">
   <head>
 	<!-- Meta Tags For Site --> 
-	<title><?php echo _TITLE_; ?> | Dovecot-Certificate-Interface by Bugfish</title>	 
+	<title><?php echo _TITLE_; ?> | DCI by Bugfish™</title>	 
 	<!-- Meta Tags For Site -->
 		<meta http-equiv="content-Type" content="text/html; utf-8" />
 		<meta http-equiv="Pragma" content="no-cache" />
@@ -34,8 +42,10 @@
   <body><div id="contentwrapper"></div><div id="content">
 	<?php if($user->user_loggedIn) { $permsobj = new x_class_perm($mysql, _TABLE_PERM_, "dovint");?>
 	<div id="nav">
-		<a href="./?site=users" <?php if(@$_GET["site"] == "users") { echo 'id="nav_active"'; } ?>>Users</a> - 
-		<a href="./?site=logs" <?php if(@$_GET["site"] == "logs") { echo 'id="nav_active"'; } ?>>Log</a> - 
+		<?php if(($permsobj->hasPerm($user->user_id, "usermgr") OR $user->user_rank == 0)) { ?><a href="./?site=users" <?php if(@$_GET["site"] == "users") { echo 'id="nav_active"'; } ?>>Users</a> - <?php } ?>
+		<?php if(($permsobj->hasPerm($user->user_id, "logs") OR $user->user_rank == 0)) { ?><a href="./?site=logs" <?php if(@$_GET["site"] == "logs") { echo 'id="nav_active"'; } ?>>Log</a> - <?php } ?>
+		<?php if(($permsobj->hasPerm($user->user_id, "debug") OR $user->user_rank == 0) AND _MYSQL_LOGGING_) { ?><a href="./?site=debug" <?php if(@$_GET["site"] == "debug") { echo 'id="nav_active"'; } ?>>Debug</a> - <?php } ?>
+		<?php if(($permsobj->hasPerm($user->user_id, "blocklist") OR $user->user_rank == 0) AND _MYSQL_LOGGING_) { ?><a href="./?site=blocks" <?php if(@$_GET["site"] == "blocks") { echo 'id="nav_active"'; } ?>>Blocklist</a> - <?php } ?>
 		<a href="./?site=domains" <?php if(@$_GET["site"] == "domains") { echo 'id="nav_active"'; } ?>>Domains</a> - 
 		<a href="./?site=profile" <?php if(@$_GET["site"] == "profile") { echo 'id="nav_active"'; } ?>>Profile</a> - 
 		<a href="./?site=logout">Logout</a>		
@@ -44,11 +54,12 @@
 	# Load Content
 	if($user->loggedIn) {			
 		switch($_GET["site"]) {
-			case "logout": $user->logout(); Header("Location: ./"); exit(); break;
-			case "logs": require_once("./_instance/logs.php"); break;
-			case "users": require_once("./_instance/users.php"); break;
-			case "domains": require_once("./_instance/domains.php"); break;
-			case "profile": require_once("./_instance/profile.php"); break;
+			case "logs": require_once("./_instance/site_logs.php"); break;
+			case "blocks": require_once("./_instance/site_blocks.php"); break;
+			case "users": require_once("./_instance/site_users.php"); break;
+			case "debug": require_once("./_instance/site_debug.php"); break;
+			case "domains": require_once("./_instance/site_domains.php"); break;
+			case "profile": require_once("./_instance/site_profile.php"); break;
 			default: Header("Location: ./?site=domains"); exit();				
 		};
 	} else {
@@ -73,14 +84,20 @@
 				<input type="text" 		name="username" 	placeholder="Username" >
 				<input type="password"  name="password" 	placeholder="Password">
 				<img src="./_style/captcha_default.php"><input type="text"  name="captcha" 	placeholder="Captcha">
-				<input type="submit" 	value="Authenticate" name="auth" class="primary_button">
+				<input type="submit" 	value="Authenticate" name="auth" class="primary_button" style="cursor:pointer;">
 			</form>
 		</div>
 	<?php	
 	}
 	
+	# Close Div
+	echo "</div>";
 	# Display Event Boxes
 	x_eventBoxShow(_COOKIES_);
- ?></div><div id="footer">Dovecot-Certificate-Interface v1 | Made by <a href="https://bugfish.eu" target="_blank" rel="noopeener">Bugfish</a> | <a href="https://www.patreon.com/bugfish" target="_blank" rel="noopeener">Patreon</a></div> 
+	# Display Cookie Banner
+	x_cookieBanner(_COOKIES_);	
+	# Display Footer
+	echo _FOOTER_;
+ ?>
   </body>
 </html>

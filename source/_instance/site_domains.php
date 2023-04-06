@@ -1,6 +1,7 @@
 <?php
-if(!$permsobj->hasPerm($user->user_id, "perm_domains") AND $user->user_rank != 0) { echo "<div class='content_box'>You do not have Permission!</div>"; } else {
+if(!$permsobj->hasPerm($user->user_id, "domainmgr") AND $user->user_rank != 0) { echo "<div class='content_box'>You do not have Permission!</div>"; } else {
 if(isset($_POST["exec_edit"])) {
+	if(!$csrf->check($_POST["csrf"])) { x_eventBoxPrep("CSRF Error - Try again!", "error", _COOKIES_); goto endofex; }
 	if(trim(@$_POST["domain"]) != "" AND trim(@$_POST["cert"]) != "" AND trim(@$_POST["key"]) != "") {
 		if(is_numeric(@$_POST["exec_ref"])) {
 			$mysql->query("UPDATE "._TABLE_DOMAIN_." SET domain = '".$mysql->escape(trim($_POST["domain"]))."' WHERE id = \"".$_POST["exec_ref"]."\";");
@@ -18,31 +19,50 @@ if(isset($_POST["exec_edit"])) {
 			x_eventBoxPrep("Domain has been added!", "ok", _COOKIES_);
 		}
 	} else { x_eventBoxPrep("Error in submitted data!", "error", _COOKIES_);  }
-}
+}endofex:
 
 if(isset($_POST["exec_del"])) {
 	if(is_numeric($_POST["exec_ref"])) {
+			if(!$csrf->check($_POST["csrf"])) { x_eventBoxPrep("CSRF Error - Try again!", "error", _COOKIES_); goto endofexasd; }
 			$mysql->query("DELETE FROM `"._TABLE_DOMAIN_."` WHERE id = \"".$_POST["exec_ref"]."\";");
 			x_eventBoxPrep("Domain has been deleted!", "ok", _COOKIES_);
 	} 
-}
+}endofexasd:
 	
+if(isset($_GET["edityes"])) {
+	if(is_numeric($_GET["edityes"])) {
+			if(!$csrf->check($_GET["csrf"])) { x_eventBoxPrep("CSRF Error - Try again!", "error", _COOKIES_); goto endoasdasdfexasd; }
+			$mysql->query("UPDATE `"._TABLE_DOMAIN_."` SET exclude = 0 WHERE id = \"".$_GET["edityes"]."\";");
+			x_eventBoxPrep("Domain has been enabled!", "ok", _COOKIES_);
+	} 
+}endoasdasdfexasd:
+
+if(isset($_GET["editno"])) {
+	if(is_numeric($_GET["editno"])) {
+			if(!$csrf->check($_GET["csrf"])) { x_eventBoxPrep("CSRF Error - Try again!", "error", _COOKIES_); goto endodfafeexasd; }
+			$mysql->query("UPDATE `"._TABLE_DOMAIN_."` SET exclude = 1 WHERE id = \"".$_GET["editno"]."\";");
+			x_eventBoxPrep("Domain has been disabled!", "ok", _COOKIES_);
+	} 
+}endodfafeexasd:	
 	
-	
-	echo '<div  class="content_box" style="max-width: 800px;text-align: center;"><a href="./?site=domains&edit=add" class="sysbutton">Add new Domain</a></div>';
+	echo '<div  class="content_box" style="max-width: 800px;text-align: center;"><a href="./?site=domains&edit=add" class="sysbutton">Add new Domain</a><br />The domains added here will be written to the dovecot configuration file to enable per domain ssl-certificates. The domains will be deep-checked for validation before adding to the configuration. The modulus of the certs will be checked if they equal between the cert and key, and only then the mail domain will be added to dovecot. Is the status is OK - the Domain is written to the dovecot configuration file. Otherwhise there is an error with the key or cert file...<br /><br />If you create or edit domains here, your changes may will be overwritten if you use the ispconfig-fetch cronjob, which acts as a service to add domains out of ispconfig automatically here! You can read more about this in the "<a href="'._HELP_.'" rel="noopener" target="_blank">Help</a>" section!<br /></div>';
 		
 		$curissue	=	mysqli_query($mysql->mysqlcon, "SELECT *	FROM "._TABLE_DOMAIN_."  ORDER BY id DESC");
 		$run = false;
 		while ($curissuer	=	mysqli_fetch_array($curissue) ) { 
 		echo '<div class="content_box" style="text-align:left;">';
+		$usercur = @dci_user_get_name_from_id($mysql, @$curissuer["fk_user"]);
+		if(!is_numeric($usercur)) { $usercur = "System"; }
 			echo '<div class="label_box">Domain: <b>'.@$curissuer["domain"].'</b></div>';
 			echo '<div class="label_box">Cert: <b>'.@$curissuer["cert"].'</b></div>';
 			echo '<div class="label_box">Key: <b>'.@$curissuer["key"].'</b></div> ';
 			if(@$curissuer["status"] != 1) { $pxx = "<font color='red'>Cert or Keyfile not Found</font>"; } else { $pxx = "<font color='lime'>OK</font>";}
+			if(@$curissuer["exclude"] == 1) { echo '<div class="label_box" style="background: red !important;color: white;">Enabled: <b>No</b></div> '; } else { echo '<div class="label_box" style="background: lime !important;color: black;">Enabled: <b>Yes</b></div> ';}
 			if(@$curissuer["status"] == 2) { $pxx = "<font color='yellow'>Waiting for Cron</font>"; } 
 			echo '<div class="label_box">Status: <b>'. $pxx.'</b></div> ';
-			echo '<div class="label_box">Owner: <b>'.@dci_user_get_name_from_id($mysql, @$curissuer["fk_user"]).'</b></div> <br clear="left"/>';
+			echo '<div class="label_box">Owner: <b>'.$usercur.'</b></div> <br clear="left"/>';
 			$run = true;	
+			if(@$curissuer["exclude"] == 1) { echo "<a class='sysbutton' href='./?site=domains&edityes=".$curissuer["id"]."&csrf=".$csrf->get()."'>Enable</a> "; } else { echo "<a class='sysbutton' href='./?site=domains&editno=".$curissuer["id"]."&csrf=".$csrf->get()."'>Disable</a> ";}
 			echo "<a class='sysbutton' href='./?site=domains&edit=".$curissuer["id"]."'>Edit</a> ";
 			echo "<a class='sysbutton' href='./?site=domains&delete=".$curissuer["id"]."'>Delete</a> ";
 echo "</div>";	
@@ -62,7 +82,7 @@ echo "</div>";
 				<input type="text" placeholder="Key Location" name="key" value="<?php echo @dci_domain_get($mysql, $_GET["edit"])["key"]; ?>">
 				<?php if(is_numeric(@$_GET["edit"])) { ?><input type="hidden" value="<?php echo @$_GET["edit"]; ?>" name="exec_ref"><?php } ?>
 			</div>		
-			<div class="internal_popup_submit"><input type="submit" value="Execute" name="exec_edit"><a href="./?site=domains">Cancel</a></div></form>
+			<div class="internal_popup_submit"><input type="hidden" value="<?php echo @$csrf->get(); ?>" name="csrf"><input type="submit" value="Execute" name="exec_edit"><a href="./?site=domains">Cancel</a></div></form>
 		</div>
 	</div>
 <?php } ?>
@@ -70,7 +90,8 @@ echo "</div>";
 	<div class="internal_popup">
 		<form method="post" action="./?site=domains"><div class="internal_popup_inner">
 			<div class="internal_popup_title">Delete: <?php echo dci_domain_get($mysql, $_GET["delete"])["id"]; ?></div>
-			<div class="internal_popup_submit"><input type="hidden" value="<?php echo @$_GET["delete"]; ?>" name="exec_ref"><input type="submit" value="Execute" name="exec_del"><a href="./?site=domains">Cancel</a></div>		
+			<div class="internal_popup_content">Do you want to delete this domain for dovecot configuration? It may gets re-fetched if it has been auto-added by the ispconfig-fetch cronjob!</div>
+			<div class="internal_popup_submit"><input type="hidden" value="<?php echo @$csrf->get(); ?>" name="csrf"><input type="hidden" value="<?php echo @$_GET["delete"]; ?>" name="exec_ref"><input type="submit" value="Execute" name="exec_del"><a href="./?site=domains">Cancel</a></div>		
 		</div></form>
 	</div>
 <?php }  } ?>

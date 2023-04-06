@@ -60,25 +60,47 @@
 			 
 <h2>Table of Contents</h2>
 <a href="#general-functionality-informations">General Functionality Informations</a><br />
+- <a href="#about-this-software">About this Software</a><br />
+- <a href="#user-management">User Management</a><br />
+- <a href="#logging">Logging</a><br />
+- <a href="#debug">Debugging</a><br />
+- <a href="#sslvalidasd">SSL Validation</a><br />
+- <a href="#blacklisting">IP Blacklisting</a><br />
 <a href="#installation">Installation</a><br />
+- <a href="#deployment">Deployment</a><br />
+- <a href="#requirements">Requirements</a><br />
+- <a href="#cronjobs-mandatory-">Cronjobs  [MANDATORY!]</a><br />
+- <a href="#cronjobs-mandatory-">Needed change in dovecot.conf [MANDATORY!]</a><br />
 <a href="#issues">Issues</a><br />					 
 <a href="#default-login-for-webinterface">Default Login for Webinterface</a><br />					 
 			 
 <h2 id="general-functionality-informations">General Functionality Informations</h2>
+You can find the Documentation <a href="https://bugfishtm.github.io/Dovecot-Certificate-Interface/" target="_blank" rel="noopener">here</a>. You can find the Github Page <a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" target="_blank" rel="noopener">here</a>. I am planning to make a youtube tutorial video about this software. See my channels page for the video - It should be named like this project is. My Channel URL is <a href="https://www.youtube.com/channel/UC3cOjFu-MLj8GGDkpeIhqhQ" target="_blank" rel="noopener">here</a>. The place where i usually store such kind of tutorial videos is <a href="https://www.youtube.com/playlist?list=PL6npOHuBGrpBw4hKaalqa1E8tGNNf8KoO"  target="_blank" rel="noopener">here</a>. If you fo not find a tutorial video inside this playlist, i advise you to keep on using the manual/readme here. My General Github Project Page is <a href="https://bugfishtm.github.io" target="_blank" rel="noopener">here</a>.  <br />
+
+
 <h3 id="about-this-software">About this Software</h3>
 <p>This software is to configure Dovecot per Domain SSL Certificates.<br>So you can login to different Domains with a Mail Client on your Server
 with a valid certificate!</p>
 <p>This software is to connect ssl certs with Domains. There is a cronjob here to make this script runable with ispconfig, all will be automated.
-But Its not focused for ispconfig.</p>
+This software has been built to automize ISP Config Dovecot Configuration File Generation for Valid SSL Domains, but it can be used standalone. If you implement this software to a server which already has another instance changing dovecot configuration files (Plesk or similar) it maybe could break your system.</p>
 <h3 id="user-management">User Management</h3>
-<p>This software comes with usermanagement in it. You can create/edit/delete users and assign different permissions of different areas to them.</p>
+<p>This software comes with usermanagement in it. You can create/edit/delete users and assign different permissions of different areas to them.Watch out to not lose your password, there is no way to restore it! If you lose the administrator password and you dont have a user with access to the user management - than the only way to obtain access again is by deleting the user database in the mysql server (of this website) - or to change the password value of the administrative user inside that database to a new bcrypt generated string!</p>
+<h3 id="logging">Logging</h3>
+The background work of cronjobs, which do the actual work like writing the config file, can be seen and overviewed inside the "logs" section of the webinterface. There you can see the status of the sync.php and ispconfig-fetch.php cronjob. The latest entries of the different types are always the one of interest, as them before are expired, but can be seen as archived.
+<h3 id="debug">Debugging</h3>
+In the settings.php file you can set _MYSQL_LOGGING_ to "true" - this will make a new area appear where you can see mysql errors and assign users to see them. This is only for developers and does not to be used in productive environment. If you want to see any informations about the background work of the software see the logs section!
+<h3 id="sslvalidasd">SSL Validation</h3>
+The domains added to the software will be written to the dovecot configuration file to enable per domain ssl-certificates. The domains will be deep-checked for validation before adding to the configuration. The modulus of the certs will be checked if they equal between the cert and key, and only then the mail domain will be added to dovecot. Is the status is OK - the Domain is written to the dovecot configuration file. Otherwhise there is an error with the key or cert file...<br /><br />If you use the ispconfig-fetch cronjob file to make this script run with ispconfig automated, it is not possible anymore to set up domains or edit domains as user, as they would be cleaned up or overwritten by changes made by that cronjob. If you want to use this software in standalone mode do not activate the ispconfig-fetch cronjob!
+<h3 id="blacklisting">IP Blacklisting</h3>
+After a amount which is specified in settings.php of tries (fail logins), the ip address of the fail-login user will be blocked. This will be till the daily.php cron is executed, or the ip is manually removed inside the webinterface.
 <h2 id="installation">Installation</h2>
-<p>As last step of Installation please take a Look at the configuration/settings page of your deployed instance. If you have configured all needed settings in settings.php correctly, there should be no need to worry, as I am using this software in a lot of productive areas. But no guarantee..</p>
+<p>As last step of Installation please take a Look at the configuration/settings page of your deployed instance. If you have configured all needed settings in settings.php correctly, there should be no need to worry, as I am using this software in a lot of productive areas. But no guarantee.. </p>
 <h3 id="deployment">Deployment</h3>
 <ul>
 <li>Upload the files in the &quot;source&quot; directory of this repository to your webspace and check the settings.sample.php file. It is mandatory and important that you check the settings in that file. In the Settings.php file you will also set the MySQL Login Data. Rename the settings.sample.php to settings.php after that!</li>
 <li>You dont need to install any SQL Tables for yourself. The websoftware will automatically install all needed tanbles, if they are not present at the time the website will be opened up. An initial user will created. You can see the login credentials of the initial created user at the end of this manual.</li>
-<li>Setup the Cronjob as described below. Without the cronjob, no Dovecot Configuration will be written.</li>
+<li>Setup the Cronjob as described <a href="#cronjobs-mandatory-">here</a>. Without the cronjob, no Dovecot Configuration will be written.</li>
+<li>It is very important that you change the dovecot.conf like described <a href="#-etc-dovecot-dovecot-conf">here</a>.</li>
 </ul>
 <h3 id="requirements">Requirements</h3>
 <ul>
@@ -90,7 +112,7 @@ But Its not focused for ispconfig.</p>
 <li>MySQL Database Connection and user to connect with</li>
 <li>Open Port 80/442 (TCP) [Webinterface]</li>
 </ul>
-<h3 id="cronjobs-mandatory-">Cronjobs (Mandatory)</h3>
+<h3 id="cronjobs-mandatory-">Cronjobs (Mandatory)</h3><font color="red">This is mandatory to make this software work!</font>
 <table>
 <thead>
 <tr>
@@ -110,15 +132,26 @@ But Its not focused for ispconfig.</p>
 <td>30 min interval</td>
 <td>Write the in settings.php specified dovecot config file!</td>
 </tr>
+</tbody>
+</table>
+<table>
+<h3>The Cronjob below is optional, to run automated with ISPConfig!</h3>
+<thead>
+<tr>
+<th>Command</th>
+<th>Interval</th>
+<th>Description</th>
+</tr>
+</thead>
 <tr>
 <td>PATH_TO_WEBROOT/_cronjon/ispconfig_fetch.php;</td>
 <td>10 min interval</td>
-<td>Fetch SSL Certs and Domains out of ISPConfig and Write into Database. (OPTIONAL AND ONLY FOR ISPCONFIG USERS!)</td>
+<td>Fetch SSL Certs and Domains out of ISPConfig and Write into Database. (OPTIONAL AND ONLY FOR ISPCONFIG USERS! DO NOT USE IN STANDALONE MODE)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="-etc-dovecot-dovecot-conf">/etc/dovecot/dovecot.conf</h3>
-<p>Add this to the end of the file</p>
+<h3 id="-etc-dovecot-dovecot-conf"> Needed Changes: /etc/dovecot/dovecot.conf</h3>
+<p>Add this to the end of the file <font color="red">This is mandatory to make this software work!</font></p>
 <pre><code>!include_try dovecotcertinterface<span class="hljs-selector-class">.certs</span><span class="hljs-selector-class">.conf</span>
 </code></pre><h2 id="issues">Issues</h2>
 <p>If you encounter issues or have questions using this software, do not hesitate write us at our Forum on www.bugfish.eu/forum !</p>
@@ -145,6 +178,7 @@ But Its not focused for ispconfig.</p>
 				<li><a href="https://github.com/bugfishtm/bugfish-hive" rel="noopener" target="_blank">Bugfish-Hive</a></li>			  
 				<li><a href="https://github.com/bugfishtm/bugfish-framework" rel="noopener" target="_blank">Bugfish-Framework</a></li>
 				<li><a href="https://github.com/bugfishtm/Bind9-Web-Manager" rel="noopener" target="_blank">Bind9 Web Manager</a></li>
+				<li><a href="https://github.com/bugfishtm/Simple-Web-Chatbot" rel="noopener" target="_blank">Simple-Web-Chatbot</a></li>
 				<li><a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" rel="noopener" target="_blank">Dovecot-Certificate-Interface</a></li>
 				<li><a href="https://github.com/bugfishtm/Android-Web-App-Example" rel="noopener" target="_blank">Android Web App Example</a></li>
 				<li><a href="https://github.com/bugfishtm/Mail-Relaying-over-DNS" rel="noopener" target="_blank">Mail Relaying over DNS</a></li>
