@@ -23,7 +23,7 @@
 	define("_CSRF_VALID_LIMIT_TIME_", 	1000); # Define Time for CSRF Validation	(1000 Recommended)	 # Can be left unchanged				
 	
 	/* Activate MySQL Debugging Area for Developers? */
-	define("_MYSQL_LOGGING_", false); # Can be left unchanged!
+	define("_MYSQL_LOGGING_", 		false); # Can be left unchanged!
 	define("_COOKIES_",     		"dci_"); # Cookie Prefix // Can be unchanged
 	
 	##########################################################################################################################################
@@ -42,6 +42,10 @@
 	# This can be left unchanged. (Does not act if cronjob ispconfig_fetch.php is inactive || this is the default ispconfig clients data folder)
 	##########################################################################################################################################
 	define("_CRON_ISP_FOLDER_SEARCH_", "/var/www/"); # Can be left unchanged / for ispconfig_fetch.php cronjob in _cronjob folder
+	
+	##########################################################################################################################################
+	## DO NOT CHANGE BELOW!
+	##########################################################################################################################################
 	
 	## Determine Document Root - Leave unchanged!
 	$current_dir = dirname(__FILE__);

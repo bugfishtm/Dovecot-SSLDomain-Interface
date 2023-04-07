@@ -136,7 +136,7 @@
 		public function remove_perms($ref) { if(is_numeric($ref)) { return $this->setPerm($ref, array()); } return false; }
 		public function clear_perms($ref) { if(is_numeric($ref)) { return $this->setPerm($ref, array()); } return false; }
 		// Delete a Ref from Permission Table	
-		public function delete_ref($ref) { if(is_numeric($ref)) { return $this->mysql->query("DELETE FROM ".$this->tablename." WHERE ref = \"".$this->ref."\" AND section = '".$this->section."'"); } return false; }
+		public function delete_ref($ref) { if(is_numeric($ref)) { return $this->mysql->query("DELETE FROM ".$this->tablename." WHERE ref = \"".$ref."\" AND section = '".$this->section."'"); } return false; }
 		// Get a Ref Object
 		public function item($ref, $permission_set = false) { 
 			if(!is_numeric($ref)) { return false; }

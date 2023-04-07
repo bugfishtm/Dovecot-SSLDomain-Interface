@@ -28,6 +28,11 @@
 
 		h1 {  margin-top: 0;margin-bottom: 2rem;font-weight: 300;text-rendering: optimizeLegibility;line-height: 1;font-size: 3.6rem; line-height: 1.25; letter-spacing: -.1rem; color:#ff5707; }
 		h2 { font-size: 18px; padding-bottom: 0px; color:#ffffff; }
+		
+		/* NEW NEW NEW */
+		h2.orangetext { color:#ff5707; }
+		thead { background: #323232; }
+		tr:hover { background: #242424; }
 
 		.inner { padding: 15px; }
 		#headertitle { text-align: center; width: 100; font-weight: bold; }
@@ -56,7 +61,7 @@
     </header>
     <a href="#header"><div style="z-index:1000; !important; background: black; position: fixed; top: 5px; right: 5px; width: 110px; height: 30px;font-size: 16px;padding: 5px;border-radius: 5px;cursor: pointer;"><b>^ Back to Top</b></div></a>    
     <div>
-            <header id="headertitle"><h2>REPOSITORY README</h2></header> <div class="inner" style="text-align: left;">
+            <div class="inner" style="text-align: left;">
 			 
 <h2>Table of Contents</h2>
 <a href="#general-functionality-informations">General Functionality Informations</a><br />
@@ -65,54 +70,135 @@
 - <a href="#logging">Logging</a><br />
 - <a href="#debug">Debugging</a><br />
 - <a href="#sslvalidasd">SSL Validation</a><br />
+- <a href="#ispconfig">Use with ISPConfig</a><br />
 - <a href="#blacklisting">IP Blacklisting</a><br />
 <a href="#installation">Installation</a><br />
-- <a href="#deployment">Deployment</a><br />
-- <a href="#requirements">Requirements</a><br />
-- <a href="#cronjobs-mandatory-">Cronjobs  [MANDATORY!]</a><br />
-- <a href="#cronjobs-mandatory-">Needed change in dovecot.conf [MANDATORY!]</a><br />
+- <a href="#setreq">Requirements</a><br />
+- <a href="#setsteps">Installation Steps</a><br />
+- <a href="#setset">Settings.php File</a><br />
+- <a href="#setcron">Setup Cronjobs</a><br />
+- <a href="#setccc">Dovecot.conf File</a><br />
+<a href="#default-login-for-webinterface">Default Login for Webinterface</a><br />	
 <a href="#issues">Issues</a><br />					 
-<a href="#default-login-for-webinterface">Default Login for Webinterface</a><br />					 
-			 
-<h2 id="general-functionality-informations">General Functionality Informations</h2>
-You can find the Documentation <a href="https://bugfishtm.github.io/Dovecot-Certificate-Interface/" target="_blank" rel="noopener">here</a>. You can find the Github Page <a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" target="_blank" rel="noopener">here</a>. I am planning to make a youtube tutorial video about this software. See my channels page for the video - It should be named like this project is. My Channel URL is <a href="https://www.youtube.com/channel/UC3cOjFu-MLj8GGDkpeIhqhQ" target="_blank" rel="noopener">here</a>. The place where i usually store such kind of tutorial videos is <a href="https://www.youtube.com/playlist?list=PL6npOHuBGrpBw4hKaalqa1E8tGNNf8KoO"  target="_blank" rel="noopener">here</a>. If you fo not find a tutorial video inside this playlist, i advise you to keep on using the manual/readme here. My General Github Project Page is <a href="https://bugfishtm.github.io" target="_blank" rel="noopener">here</a>.  <br />
-
+<a href="#links">Interesting URLs</a><br />					 
+<a href="#lic">License</a><br />					 
+			 <hr>
+<h2 id="general-functionality-informations" class="orangetext">General Functionality Informations</h2>
+This software is to enable dovecot per domain ssl certificates and manage / control them. Besides that it is designed to work automated together with ispconfig... Inside the webinterface are different informations in every areas which are there to help you using this software. I hope you will get an understanding about what this software was designed for and how you can get your use out of it. I wish you the best.
 
 <h3 id="about-this-software">About this Software</h3>
-<p>This software is to configure Dovecot per Domain SSL Certificates.<br>So you can login to different Domains with a Mail Client on your Server
-with a valid certificate!</p>
-<p>This software is to connect ssl certs with Domains. There is a cronjob here to make this script runable with ispconfig, all will be automated.
-This software has been built to automize ISP Config Dovecot Configuration File Generation for Valid SSL Domains, but it can be used standalone. If you implement this software to a server which already has another instance changing dovecot configuration files (Plesk or similar) it maybe could break your system.</p>
+<p>This software is designed to facilitate the configuration of Dovecot per Domain SSL Certificates. This feature allows users to log in to different domains with a mail client on their server with a valid certificate. In addition, this software can automate the ISP Config Dovecot Configuration File Generation for Valid SSL Domains. However, if the server already has another instance changing Dovecot configuration files (such as Plesk), using this software may result in system malfunction.</p>
+
+<p>This software acts non-destructive. This means it does not change active configuration files, but only the file defined in settings.php with the constant: _CRON_DOVECOT_FILE_. The change you will do in the installation, which is to add a string to the dovecot.conf file at the end, can always be reverted and no other service oder changes will be made by the software which could break your system. If your dovecot process does not start at any time you use this software, this can only be related to the software in the case that the _CRON_DOVECOT_FILE_ is corrupted or bad written. (This does usually not happen by this software, because it does check every certificate for deep validation, but it can happen if you have other dovecot.conf files loaded and a domain may be duplicated in another one). It is not recommended to run this software together with plesk, virtualmin or every other hosting software which already has a working integration for dovecot per domain ssl connections. It is possible to use this panel standalone with no other hosting software in use, but you need to configure all dovecot settings by yourself. This script here will only create a file _CRON_DOVECOT_FILE_ which contains the config for the domains visible in the webinterface. It will not create or change other config files.</p>
+
+
 <h3 id="user-management">User Management</h3>
-<p>This software comes with usermanagement in it. You can create/edit/delete users and assign different permissions of different areas to them.Watch out to not lose your password, there is no way to restore it! If you lose the administrator password and you dont have a user with access to the user management - than the only way to obtain access again is by deleting the user database in the mysql server (of this website) - or to change the password value of the administrative user inside that database to a new bcrypt generated string!</p>
+<p>This software includes user management capabilities. Users can be created, edited, and deleted, and different permissions for different areas can be assigned to them. Please note that if the administrator password is lost and no other user has access to the user management feature, the only way to regain access is to delete the websites _user database in the MySQL server or to change the password value of the administrative user inside that database tables "password" field to a new bcrypt generated string. You can generate this types of strings on my website if needed. Take a look in the apps section at www.bugfish.eu and look for a Module named similar to "PHP Password"...</p>
+
 <h3 id="logging">Logging</h3>
-The background work of cronjobs, which do the actual work like writing the config file, can be seen and overviewed inside the "logs" section of the webinterface. There you can see the status of the sync.php and ispconfig-fetch.php cronjob. The latest entries of the different types are always the one of interest, as them before are expired, but can be seen as archived.
+<p>The background work of cronjobs, such as writing the dovecot config file, can be viewed and monitored in the "logs" section of the web interface. The status of the sync.php and ispconfig-fetch.php cronjob can be viewed there. The latest entries of the different types are always the ones of interest, as the previous ones are expired but can be viewed as archived.</p>
+
+
 <h3 id="debug">Debugging</h3>
-In the settings.php file you can set _MYSQL_LOGGING_ to "true" - this will make a new area appear where you can see mysql errors and assign users to see them. This is only for developers and does not to be used in productive environment. If you want to see any informations about the background work of the software see the logs section!
+<p>Developers can use the "settings.php" file to set _MYSQL_LOGGING_ to "true." This will cause a new area to appear, displaying MySQL errors and allowing users to view them. This feature is not intended for use in productive environments. For information on the background work of the software, please view the "Logs" section.</p>
+
 <h3 id="sslvalidasd">SSL Validation</h3>
-The domains added to the software will be written to the dovecot configuration file to enable per domain ssl-certificates. The domains will be deep-checked for validation before adding to the configuration. The modulus of the certs will be checked if they equal between the cert and key, and only then the mail domain will be added to dovecot. Is the status is OK - the Domain is written to the dovecot configuration file. Otherwhise there is an error with the key or cert file...<br /><br />If you use the ispconfig-fetch cronjob file to make this script run with ispconfig automated, it is not possible anymore to set up domains or edit domains as user, as they would be cleaned up or overwritten by changes made by that cronjob. If you want to use this software in standalone mode do not activate the ispconfig-fetch cronjob!
+<p>Domains added to the software will be written to the Dovecot configuration file to enable per domain SSL certificates. Before being added to the configuration, the domains will undergo deep validation checks. The modulus of the certs will be checked to ensure they are equal between the cert and key. Only when the status is OK will the mail domain be added to Dovecot. If there is an error with the key or cert file, the domain will not be added...</p>
+
+<h3 id="ispconfig">Use with ISPConfig</h3>
+<p>This script is able to automate the certificate config creation of dovecot for ssl mail domains. It will fetch the folder names of a pre given folder in the settings.php file (which can be left unchanged by default, because it contains the defaults ispconfig web root folders string) and after it has fetched the local domains out of the folders, it will try to get the certificates for them out of the domains subfolder "_domain_/ssl". If a custom ISP Config Certificate File is found, that will be used - until that is deleted in ispconfig. If there is no custom certificate for a website domain found, the script will try to find a letsencrypt cert. If both search operations for a valid certificate of a determined domain (by subfolder name) is valid, than the domain will not be saved into the datanbase. If you use the ispconfig-fetch cronjob file to make this script run with ispconfig automated, it is not possible anymore to set up domains or edit domains as user, as they would be cleaned up or overwritten by changes made by that cronjob. If you want to use this software in standalone mode do not activate the ispconfig-fetch cronjob!</p>
+
 <h3 id="blacklisting">IP Blacklisting</h3>
-After a amount which is specified in settings.php of tries (fail logins), the ip address of the fail-login user will be blocked. This will be till the daily.php cron is executed, or the ip is manually removed inside the webinterface.
-<h2 id="installation">Installation</h2>
-<p>As last step of Installation please take a Look at the configuration/settings page of your deployed instance. If you have configured all needed settings in settings.php correctly, there should be no need to worry, as I am using this software in a lot of productive areas. But no guarantee.. </p>
-<h3 id="deployment">Deployment</h3>
+<p>After a specified number of failed login attempts (specified in the "settings.php" file), the IP address of the failed login user will be blocked. The IP will remain blocked until the daily.php cron is executed, or the IP is manually removed from the web interface. You can unblock IP Addresses in the "Blocklist" Area of the website.</p>
+
+<hr>
+<h2 id="installation" class="orangetext">Installation</h2>
+<p>Before deploying the software, it is important to review the configuration/settings file of your instance. If the necessary settings have been correctly configured in the settings.php file, there should be no issues. However, please note that there is no guarantee, although this software has been used successfully in numerous production environments.</p>
+
+<p>The software has been tested on Ubuntu and Debian, although it may work on other systems that are untested. If you run this website on another system as debian and ubuntu, you may need to change deeper settings inside the settings.php file. This website is optimized for debian/ubuntu and apache / php8. The following requirements must be met:</p>
+<b  id="setreq">Here you can see requirements:</b>
 <ul>
-<li>Upload the files in the &quot;source&quot; directory of this repository to your webspace and check the settings.sample.php file. It is mandatory and important that you check the settings in that file. In the Settings.php file you will also set the MySQL Login Data. Rename the settings.sample.php to settings.php after that!</li>
-<li>You dont need to install any SQL Tables for yourself. The websoftware will automatically install all needed tanbles, if they are not present at the time the website will be opened up. An initial user will created. You can see the login credentials of the initial created user at the end of this manual.</li>
-<li>Setup the Cronjob as described <a href="#cronjobs-mandatory-">here</a>. Without the cronjob, no Dovecot Configuration will be written.</li>
-<li>It is very important that you change the dovecot.conf like described <a href="#-etc-dovecot-dovecot-conf">here</a>.</li>
+<li>Root permissions for the cronjob on the system.</li>
+<li>Apache2 web server with PHP 7/8 support.</li>
+<li>Apache2 modules: rewrite.</li>
+<li>PHP modules: mysqli, curl, intl, mbstring, gd.</li>
+<li>MySQL database connection and user to connect with provided in settings.php file (see installation steps)</li>
 </ul>
-<h3 id="requirements">Requirements</h3>
+
+<b  id="setsteps">Here you can see steps to install the website:</b>
 <ul>
-<li>Tested on Ubuntu and Debian (may work on other systems, but untested)</li>
-<li>Root Permissions for Cronjob on System</li>
-<li>Apache2 Webserver with PHP 7/8 Support</li>
-<li>Apach2 Modules: rewrite</li>
-<li>PHP Modules: mysql, curl, intl, mbstring, zip, gd</li>
-<li>MySQL Database Connection and user to connect with</li>
-<li>Open Port 80/442 (TCP) [Webinterface]</li>
+<li>Upload the files in the "source" directory of this repository to your web space.</li>
+<li>Check the settings.sample.php file and make any necessary changes. In the settings.php file, set the MySQL login data. More information see below...</li>
+<li>Rename the settings.sample.php to settings.php.</li>
+<li>You do not need to install any SQL tables manually. The software will automatically install any required tables that are not present when the website is opened. An initial user will be created, and their login credentials will be provided at the end of this manual.</li>
+<li>Setup the cronjob as described in the documentation below. Without the cronjob, no Dovecot configuration will be written.</li>
+<li>It is crucial to change the dovecot.conf file as described in the documentation below.</li>
 </ul>
-<h3 id="cronjobs-mandatory-">Cronjobs (Mandatory)</h3><font color="red">This is mandatory to make this software work!</font>
+
+<b  id="setset">Setup settings.sample.php / settings.php (Mandatory):</b>
+<p>If you have uploaded the project files to the server (outside of the source directory), you will need to change the data in the settings.sample.php file and rename it to settings.php. This step is mandatory to make the software work, as you need to provide valid MySQL user data. Below is a list of settings in the PHP file:</p>
+
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_TITLE_</td>
+<td>You can set a Websites title here, it will be shown at the tab in your browser.</td>
+</tr>            
+<tr>
+<td>_IMPRESSUM_</td>
+<td>The link to your impressum site, will be visitable by clicking on "impressum" at the footer.</td>
+</tr>
+<tr>
+<td>_SQL_HOST_</td>
+<td>The SQL Database Host</td>
+</tr>
+<tr>
+<td>_SQL_USER_</td>
+<td>The SQL Database User</td>
+</tr>
+<tr>
+<td>_SQL_PASS_</td>
+<td>The SQL Database Password</td>
+</tr>
+<tr>
+<td>_SQL_DB_</td>
+<td>The SQL Database</td>
+</tr>
+<tr>
+<td>_IP_BLACKLIST_DAILY_OP_LIMIT_</td>
+<td>IP-Blacklist Limit for Blocking IPs (Default is 1000) Will be reseted, if cronjob "daily.php" is executed, otherwhise IPs can be delisted in the webinterface!</td>
+</tr>
+<tr>
+<td>_CSRF_VALID_LIMIT_TIME_</td>
+<td>Seconds a CSRF Key is valid, this is for form validations. By default this is set to 1000 seconds and this can be left unchanged.</td>
+</tr>
+<tr>
+<td>_MYSQL_LOGGING_</td>
+<td>If set to "true" will activate MySQL Logging and the Debug Area to view MySQL Errors in the webinterface. If set to "false" mysql logging will be deactivated and the related section in the webinterface will disappear...</td>
+</tr>
+<tr>
+<td>_COOKIES_</td>
+<td>The prefix for cookies, no need to be changed if you don't know what you do!</td>
+</tr>
+<tr>
+<td>_CRON_DOVECOT_FILE_</td>
+<td>The path to the dovecot configuration file of that interface, where the ssl to certificate / domain configuration will be written to in, this files needs to be included in the dovecot.conf file! (see below) You dont need to change the variable here, but if you do - keep in mind that you need to change the file, which is included in dovecot too.</td>
+</tr>
+<tr>
+<td>_CRON_ISP_FOLDER_SEARCH_</td>
+<td>If you want to use ISPConfig with this webinterface/script, than this variable will define the path, where the cronjob "ispconfig_fetch.php" will fetch the subfolders name and try to get valid domains out of the _domain_/ssl folder. If the cronjob does find valid cert and key than it will write that domain to the database / dovecot. Does not need to be changed on a default configured ispconfig instance. This variable is only in use for the ispconfig folder fetch process. You don't need it in standalone mode.</td>
+</tr>
+</tbody>
+</table>
+
+<p><br /><b id="setcron">Setup Cronjobs:</b></p>
+<p>To make this software work, you need at least the sync.php in the _cronjob folder of this project executing at some time. This cronjob will do all the background work, and the webinterface and the domains status will be updated everytime the sync.php cronjob does run.</p>
 <table>
 <thead>
 <tr>
@@ -123,19 +209,21 @@ After a amount which is specified in settings.php of tries (fail logins), the ip
 </thead>
 <tbody>
 <tr>
-<td>PATH_TO_WEBROOT/_cronjon/daily.php</td>
+<td>_webroot_/_cronjon/daily.php</td>
 <td>daily</td>
 <td>Resets Blacklisted IPs (Optional but Recommended)</td>
 </tr>
 <tr>
-<td>PATH_TO_WEBROOT/_cronjon/sync.php;</td>
-<td>30 min interval</td>
-<td>Write the in settings.php specified dovecot config file!</td>
+<td>_webroot_/_cronjon/sync.php;</td>
+<td>X</td>
+<td>Cronjob to execute all domain and dovecot related operations. The interval is set as you need it. I recommend every hour. This cronjob is mandatory for this script to work.</td>
 </tr>
 </tbody>
 </table>
 <table>
-<h3>The Cronjob below is optional, to run automated with ISPConfig!</h3>
+
+<p><b>ISP Config Domain Fetch Cronjob (optional)</b><br /></p>
+<p>This cronjob is optional for users, which want to automate fetch domain with certificate paths from isp config webroot folder. You dont need it if you are using this software without ispconfig.</p>
 <thead>
 <tr>
 <th>Command</th>
@@ -144,19 +232,61 @@ After a amount which is specified in settings.php of tries (fail logins), the ip
 </tr>
 </thead>
 <tr>
-<td>PATH_TO_WEBROOT/_cronjon/ispconfig_fetch.php;</td>
-<td>10 min interval</td>
-<td>Fetch SSL Certs and Domains out of ISPConfig and Write into Database. (OPTIONAL AND ONLY FOR ISPCONFIG USERS! DO NOT USE IN STANDALONE MODE)</td>
+<td>_webroot_/_cronjon/ispconfig_fetch.php;</td>
+<td>X</td>
+<td>Fetch SSL Certs and Domains out of ISPConfig Webroot Folders and Write into Database and Dovecot File if Valid Cert. Define the interval as you wish. This is only for ispconfig, do not use this cronjob in standalone mode. </td>
 </tr>
 </tbody>
 </table>
-<h3 id="-etc-dovecot-dovecot-conf"> Needed Changes: /etc/dovecot/dovecot.conf</h3>
-<p>Add this to the end of the file <font color="red">This is mandatory to make this software work!</font></p>
-<pre><code>!include_try dovecotcertinterface<span class="hljs-selector-class">.certs</span><span class="hljs-selector-class">.conf</span>
-</code></pre><h2 id="issues">Issues</h2>
-<p>If you encounter issues or have questions using this software, do not hesitate write us at our Forum on www.bugfish.eu/forum !</p>
-<h2 id="default-login-for-webinterface">Default Login for Webinterface</h2>
+
+
+
+
+
+
+
+
+<p><b id="setccc">Edit /etc/dovecot/dovecot.conf</b><br /></p>
+<p><font color="red">This is mandatory to make this script work!</font><br />Add this to the end of the file: "!include_try dci.certs.conf" (without qoutes) </p><br />
+
+<hr><h2 id="default-login-for-webinterface" class="orangetext">Default Login for Webinterface</h2>
 <p>Username: admin<br>Passwort: changeme</p>
+<hr>
+
+<h2 id="issues" class="orangetext">Issues</h2>
+<p>If you encounter issues or have questions using this software, do not hesitate write us at our Forum on <a href="https://www.bugfish.eu/forum" rel="noopener" target="_blank">www.bugfish.eu/forum</a>!</p>
+
+
+<hr><h2 id="links"  class="orangetext">Interesting URLs</h2><ul>
+<li>You can find the Documentation here:  </li>
+<a href="https://bugfishtm.github.io/Dovecot-Certificate-Interface/" rel="noopener" target="_blank">https://bugfishtm.github.io/Dovecot-Certificate-Interface</a><br /><br />
+
+
+<li>You can find the Github Repository here:</li>
+<a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" rel="noopener" target="_blank">https://github.com/bugfishtm/Dovecot-Certificate-Interface</a><br /><br />
+
+<li>Visit my website on:  </li>
+<a href="https://bugfish.eu" rel="noopener" target="_blank">https://bugfish.eu  </a><br /><br />
+
+<li>In case my website is offline see:  </li>
+<a href="https://bugfish-fs.000webhostapp.com/" rel="noopener" target="_blank">https://bugfish-fs.000webhostapp.com/ </a> <br /><br />
+
+<li>This is my Blogspot website:  </li>
+<a href="https://bugfishtm.blogspot.com/" rel="noopener" target="_blank">https://bugfishtm.blogspot.com/</a><br /><br />
+
+<li>My Personal Github Page with my Projects:  </li>
+<a href="https://bugfishtm.github.io" rel="noopener" target="_blank">https://bugfishtm.github.io</a><br /><br /></ul>
+
+<hr><h2 id="lic"  class="orangetext">License</h2>
+Copyright 2023 Jan-Maurice Dahlmanns (Bugfish)<br />
+MIT LICENSE<br /><br />
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br /><br />
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br /><br />
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 <hr>
 <p>more at www.bugfish.eu<br>Made by Jan-Maurice Dahlmanns</p>
 			 

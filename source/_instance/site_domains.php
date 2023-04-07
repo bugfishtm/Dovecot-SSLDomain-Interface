@@ -70,8 +70,8 @@ echo "</div>";
 		
 		if(!$run) {echo '<div class="content_box">No data to display!</div>';}
 ?>	
-<?php if(dci_domain_name_exists_id($mysql, @$_GET["edit"]) OR @$_GET["edit"] == "add") { 
-		if(@$_GET["edit"] == "add") { $title = "Add new Domain"; } else { $title = "Edit Domain: ".dci_domain_get($mysql, $_GET["edit"])["id"]; } ?>
+<?php if(@dci_domain_name_exists_id($mysql, @$_GET["edit"]) OR @$_GET["edit"] == "add") { 
+		if(@$_GET["edit"] == "add") { $title = "Add new Domain"; } else { $title = "Edit Domain: ".@dci_domain_get($mysql, $_GET["edit"])["id"]; } ?>
 	
 	<div class="internal_popup">
 		<div class="internal_popup_inner">
@@ -86,10 +86,10 @@ echo "</div>";
 		</div>
 	</div>
 <?php } ?>
-<?php if(dci_domain_name_exists_id($mysql, @$_GET["delete"])) { ?>	
+<?php if(@dci_domain_name_exists_id($mysql, @$_GET["delete"])) { ?>	
 	<div class="internal_popup">
 		<form method="post" action="./?site=domains"><div class="internal_popup_inner">
-			<div class="internal_popup_title">Delete: <?php echo dci_domain_get($mysql, $_GET["delete"])["id"]; ?></div>
+			<div class="internal_popup_title">Delete: <?php echo @dci_domain_get($mysql, $_GET["delete"])["id"]; ?></div>
 			<div class="internal_popup_content">Do you want to delete this domain for dovecot configuration? It may gets re-fetched if it has been auto-added by the ispconfig-fetch cronjob!</div>
 			<div class="internal_popup_submit"><input type="hidden" value="<?php echo @$csrf->get(); ?>" name="csrf"><input type="hidden" value="<?php echo @$_GET["delete"]; ?>" name="exec_ref"><input type="submit" value="Execute" name="exec_del"><a href="./?site=domains">Cancel</a></div>		
 		</div></form>

@@ -74,7 +74,7 @@ if(is_numeric($_GET["deleteid"])) {
 	 $asd = $mysql->select("SELECT * FROM  "._TABLE_LOG_." WHERE id = ".@$_GET["showcontent"]." AND section='blacklistreset'");
  }
 
- if( $asd) { ?>	
+ if( @$asd) { ?>	
 	<div class="internal_popup">
 		<div class="internal_popup_inner">
 			<div class="internal_popup_title">DATE: <?php echo htmlspecialchars($asd["creation"]); ?></div>
