@@ -420,9 +420,9 @@
 				// Default Query
 				$result = false;
 				try { $result = $this->handler(mysqli_query($this->mysqlcon, $query), false, "select#query: ".$query, false); } catch (Exception $e) { return $this->handler(false, $e, "select#query: ".$query, false); }
-				if($result) {
+				if(is_object($result)) {
 					$rows = 0;
-					$rows = @mysqli_num_rows($result);
+					try { $rows = @mysqli_num_rows($result); } catch (Exception $e) { $rows = 0; }
 					if ($rows > 0) {
 						if(!$multiple) { 
 							// Single Return
@@ -440,7 +440,7 @@
 							return $row;
 						}
 					} else {return false;}
-				} else {return false;}
+				} else {return false;} 
 			}
 		}
 			

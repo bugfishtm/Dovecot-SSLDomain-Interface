@@ -60,10 +60,10 @@
 	
 	# Some Variables
 	define('_HELP_',    "https://bugfishtm.github.io/Dovecot-Certificate-Interface/");
-	define("_FOOTER_", '<div id="footer">DCIv1.0.2 by <a href="https://bugfish.eu/aboutme" target="_blank" rel="noopeener">Bugfish</a> | <a href="'._IMPRESSUM_.'" target="_blank" rel="noopeener">Impressum</a> | <a href="'._HELP_.'" target="_blank" rel="noopeener">Help</a>');	
+	define("_FOOTER_", '<div id="footer">DCIv1.0.3 by <a href="https://bugfish.eu/aboutme" target="_blank" rel="noopeener">Bugfish</a> | <a href="'._IMPRESSUM_.'" target="_blank" rel="noopeener">Impressum</a> | <a href="'._HELP_.'" target="_blank" rel="noopeener">Help</a>');	
 	
 	/* Rebuild Table Structure */		
-	$mysql->query(" CREATE TABLE IF NOT EXISTS `"._TABLE_DOMAIN_."` (
+	$mysql->query("CREATE TABLE IF NOT EXISTS `"._TABLE_DOMAIN_."` (
 		  `id` int NOT NULL AUTO_INCREMENT COMMENT 'Unique ID',
 		  `domain` varchar(512) NOT NULL COMMENT 'Related Domain Name',
 		  `exclude` int(1) DEFAULT 0 COMMENT '1 - No Sync to Dovecot | 0 - Sync',
@@ -75,4 +75,3 @@
 		  `last_update` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Domain Update Date',
 		  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Entry Update Date',
 		  PRIMARY KEY (`id`), UNIQUE KEY `domain` (`domain`) )"); $mysql->free_all();			
-		  

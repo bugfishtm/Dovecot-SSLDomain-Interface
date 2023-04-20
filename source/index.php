@@ -95,7 +95,7 @@
 	# Display Event Boxes
 	x_eventBoxShow(_COOKIES_);
 	# Display Cookie Banner
-	x_cookieBanner(_COOKIES_);	
+	x_cookieBanner(_COOKIES_, false, "This website is using session cookies!");	
 	# Display Footer
 	echo _FOOTER_;
  ?>

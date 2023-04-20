@@ -132,12 +132,12 @@
 			if($set AND $redirect) { Header("Location: ".@$_SERVER['REQUEST_URI']); exit(); }
 	}
 
-	function x_cookieBanner($precookie = "", $use_post = false, $text = false) { 
+	function x_cookieBanner($precookie = "", $use_post = false, $text = false, $url_cookies = "#") { 
 		if (session_status() !== PHP_SESSION_ACTIVE) {@session_start();}
 		if(@$_GET["x_cookieBanner"] == "submit")  { $_SESSION[$precookie ."x_cookieBanner"] = true; }
 		if(@$_SESSION[$precookie ."x_cookieBanner"] == true) { return false; }
 		
-		if($text == false) { $text =  "This Website is using <a href='/cookies' target='_blank'>Session Cookies</a> for Site Functionality.";}
+		if($text == false) { $text =  "This Website is using <a href='".$url_cookies."' target='_blank'>Session Cookies</a> for Site Functionality.";}
 		
 		echo '<div class="x_cookieBanner">';
 			echo '<div class="x_cookieBanner_inner">';
