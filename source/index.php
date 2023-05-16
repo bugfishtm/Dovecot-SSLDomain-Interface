@@ -12,7 +12,7 @@
 	$csrf = new x_class_csrf(_COOKIES_, _CSRF_VALID_LIMIT_TIME_);
 	# Logout on Request
 	if($user->loggedIn) {			
-		switch($_GET["site"]) {	
+		switch(@$_GET["site"]) {	
 			case "logout": $user->logout(); Header("Location: ./"); x_eventBoxPrep("You have been logged out!", "ok", _COOKIES_); exit(); break;
 		};
 	}
@@ -53,7 +53,7 @@
 <?php } 
 	# Load Content
 	if($user->loggedIn) {			
-		switch($_GET["site"]) {
+		switch(@$_GET["site"]) {
 			case "logs": require_once("./_instance/site_logs.php"); break;
 			case "blocks": require_once("./_instance/site_blocks.php"); break;
 			case "users": require_once("./_instance/site_users.php"); break;
