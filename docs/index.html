@@ -12,54 +12,42 @@
 	<meta property="og:title" content="Dovecot-Certificate-Interface" />
 	<meta property="og:url" content="https://bugfishtm.github.io/Dovecot-Certificate-Interface" />
 	<meta property="og:image" content="./meta.png" />
-	<style>
-		html { font-size: 62.5%; background: url(bg.jpg); background-size:100%;}
-		body { font-size: 1.5em; line-height: 1.6; font-weight: 400;font-family: "Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #FFFFFF; max-width:800px;margin:auto; background: #121212;}
-		header {  background: #242424; padding: 15px;   color:#FFFFFF; }
-
-		ul.main-menu { margin: 0;padding: 0;display: flex;flex-wrap: wrap;justify-content: left;list-style: none;}
-		ul.main-menu li a {margin-right:20px;font-size:2.0rem; border-bottom: solid transparent 3px; color:#cfd2da;}
-		ul.main-menu li a:hover {color:#FFFFFF;}
-		ul.main-menu li a.active { color:#FFFFFF; border-bottom-color:#ff5707;}
-
-		a { font-weight: normal; text-decoration: none;  color:#ff5707;}
-		a:hover {color: white !important;}
-		a:focus {outline: thin dotted;}
-
-		h1 {  margin-top: 0;margin-bottom: 2rem;font-weight: 300;text-rendering: optimizeLegibility;line-height: 1;font-size: 3.6rem; line-height: 1.25; letter-spacing: -.1rem; color:#ff5707; }
-		h2 { font-size: 18px; padding-bottom: 0px; color:#ffffff; }
+	<link rel="stylesheet" href="./stylesheet.css">
+	 <script src="./jquery.js"></script> 
+	 <script src="./datatable.js"></script> 
+	 <script>
+		function internal_show(newshowvar, thiselement) {
+			$(".internal_show").hide();
+			$(".test").hide();
+			$("#"+newshowvar).show();
+			$(".navitts").css('color', '');
+			thiselement.css('color', '#ff0c02');
+		}
 		
-		/* NEW NEW NEW */
-		h2.orangetext { color:#ff5707; }
-		thead { background: #323232; }
-		tr:hover { background: #242424; }
-
-		.inner { padding: 15px; }
-		#headertitle { text-align: center; width: 100; font-weight: bold; }
-		.inner_section table { width: 100%;}
-		.inner_section hr { border-color: #242424;  }
-		.inner_section th { background: #454545;  }
-		.inner_section tr, .inner_section td { border-top: 2px solid #242424; text-align: left; }
-		.inner_section tr:hover { background:#343434; color: white;  }
-		iframe{ width: 100%; margin-bottom: -5px; }
-		footer{ background: #242424; bottom: 0px; width: 100%; max-width: 800px; padding: 15px;box-sizing: border-box; text-align: center; color:#FFFFFF;}
-	</style>
+		
+		$( document ).ready(function() {
+			$(".internal_show").hide();
+			$("#show_info").show();
+			$(".startactivenav").css('color', '#ff0c02');
+		});		
+	 </script>
   </head>
   <body>
 <img src="logo.png" style="width: 100%; margin-bottom: -7px;">
     <header id="header">
 	  
-      <h1>Dovecot-Certificate-Interface</h1> <!------------------------------------>
+      <h1>Dovecot-Certificate-Interface</h1> Informations and Documentation<!------------------------------------>
       
-      <ul class="main-menu">
-        <li><a href="../">Home</a></li>
-        <li><a href="#" style="color: white;">DCI</a></li>
-        <li><a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" target="_blank">Github</a></li> <!------------------------------------>
+       <ul class="main-menu">
+        <li><a href="https://bugfishtm.github.io" >Back</a></li>
+        <li><a href="#" class="navon">DCI</a></li>
+        <li><a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" target="_blank">Github</a></li>
+        <li><a target="_blank" href="https://bugfish.eu">Bugfish</a></li>
         <li><a href="./impressum.html">Impressum</a></li>
         <li><a href="./privacy.html">Privacy</a></li>
-      </ul>                 
+      </ul>              
     </header>
-    <a href="#header"><div style="z-index:1000; !important; background: black; position: fixed; top: 5px; right: 5px; width: 110px; height: 30px;font-size: 16px;padding: 5px;border-radius: 5px;cursor: pointer;"><b>^ Back to Top</b></div></a>    
+    <a href="#header"><div class="gobacktotop"><b>^ Back to Top</b></div></a>   
     <div>
             <div class="inner" style="text-align: left;">
 			
@@ -96,11 +84,11 @@ This software is to enable dovecot per domain ssl certificates and manage / cont
 <p>This software is designed to facilitate the configuration of Dovecot per Domain SSL Certificates. This feature allows users to log in to different domains with a mail client on their server with a valid certificate. In addition, this software can automate the ISP Config Dovecot Configuration File Generation for Valid SSL Domains. However, if the server already has another instance changing Dovecot configuration files (such as Plesk), using this software may result in system malfunction.</p>
 
 <p>This software acts non-destructive. This means it does not change active configuration files, but only the file defined in settings.php with the constant: _CRON_DOVECOT_FILE_. The change you will do in the installation, which is to add a string to the dovecot.conf file at the end, can always be reverted and no other service oder changes will be made by the software which could break your system. If your dovecot process does not start at any time you use this software, this can only be related to the software in the case that the _CRON_DOVECOT_FILE_ is corrupted or bad written. (This does usually not happen by this software, because it does check every certificate for deep validation, but it can happen if you have other dovecot.conf files loaded and a domain may be duplicated in another one). It is not recommended to run this software together with plesk, virtualmin or every other hosting software which already has a working integration for dovecot per domain ssl connections. It is possible to use this panel standalone with no other hosting software in use, but you need to configure all dovecot settings by yourself. This script here will only create a file _CRON_DOVECOT_FILE_ which contains the config for the domains visible in the webinterface. It will not create or change other config files.</p>
-
+Example Image Domain Manager: <br /> <img src="./main.png"><br />
 
 <h3 id="user-management">User Management</h3>
 <p>This software includes user management capabilities. Users can be created, edited, and deleted, and different permissions for different areas can be assigned to them. Please note that if the administrator password is lost and no other user has access to the user management feature, the only way to regain access is to delete the websites _user database in the MySQL server or to change the password value of the administrative user inside that database tables "password" field to a new bcrypt generated string. You can generate this types of strings on my website if needed. Take a look in the apps section at www.bugfish.eu and look for a Module named similar to "PHP Password"...</p>
-
+Example Image User Manager: <br /> <img src="./1.png"><br />
 <h3 id="logging">Logging</h3>
 <p>The background work of cronjobs, such as writing the dovecot config file, can be viewed and monitored in the "logs" section of the web interface. The status of the sync.php and ispconfig-fetch.php cronjob can be viewed there. The latest entries of the different types are always the ones of interest, as the previous ones are expired but can be viewed as archived.</p>
 
@@ -116,7 +104,7 @@ This software is to enable dovecot per domain ssl certificates and manage / cont
 
 <h3 id="blacklisting">IP Blacklisting</h3>
 <p>After a specified number of failed login attempts (specified in the "settings.php" file), the IP address of the failed login user will be blocked. The IP will remain blocked until the daily.php cron is executed, or the IP is manually removed from the web interface. You can unblock IP Addresses in the "Blocklist" Area of the website.</p>
-
+Example Image Domain Manager: <br /> <img src="./2.png"><br />
 <hr>
 <h2 id="installation" class="orangetext">Installation</h2>
 <p>Before deploying the software, it is important to review the configuration/settings file of your instance. If the necessary settings have been correctly configured in the settings.php file, there should be no issues. However, please note that there is no guarantee, although this software has been used successfully in numerous production environments.</p>
@@ -274,8 +262,6 @@ This software is to enable dovecot per domain ssl certificates and manage / cont
 <li>Visit my website on:  </li>
 <a href="https://bugfish.eu" rel="noopener" target="_blank">https://bugfish.eu  </a><br /><br />
 
-<li>In case my website is offline see:  </li>
-<a href="https://bugfish-fs.000webhostapp.com/" rel="noopener" target="_blank">https://bugfish-fs.000webhostapp.com/ </a> <br /><br />
 
 <li>This is my Blogspot website:  </li>
 <a href="https://bugfishtm.blogspot.com/" rel="noopener" target="_blank">https://bugfishtm.blogspot.com/</a><br /><br />
@@ -303,24 +289,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 			 
 </div>
 
-
-			  
-			  <header id="headertitle"><h2>MY PROJECT PAGES</h2></header><div class="inner">
-			  <ul>
-				<li><a href="https://bugfish.eu" target="_blank" rel="noopener">Website</a></li>
-				<li><a href="https://bugfishtm.blogspot.com/" target="_blank" rel="noopener">Blog</a></li>
-				<li><a href="https://bugfish-fs.000webhostapp.com/" target="_blank" rel="noopener">Fallback Website</a></li>
-				<li><a href="https://www.youtube.com/c/bugfishtm" target="_blank" rel="noopener">Youtube</a></li>
-				<li><a href="https://www.youtube.com/channel/UC3ikaOiJwdKRfzsKDiFUSyA" target="_blank" rel="noopener">Youtube Artist Account</a></li>
-				<li><a href="https://github.com/bugfishtm" target="_blank" rel="noopener">Github</a></li>
-				<li><a href="https://pixabay.com/de/users/bugfish-15886987/" target="_blank" rel="noopener">Pixabay</a></li>
-				<li><a href="https://bugfish.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a></li>
-				<li><a href="https://open.spotify.com/artist/22t8XUzb2rVqKywyCaS36k" rel="noopener" target="_blank">Spotify</a></li>
-				<li><a href="https://www.dailymotion.com/bugfish" target="_blank" rel="noopener">Dailymotion</a></li>
-				<li><a href="https://www.deviantart.com/bxgfxsh" target="_blank" rel="noopener">DeviantArt</a></li>
-				<li><a href="https://jan-maurice-dahlmanns.de" target="_blank" rel="noopener">About Me</a></li>
-			  </ul></div>
     </div>
-    <footer>  Jan-Maurice Dahlmanns [<a href="https://www.bugfish.eu" target="_blank">Bugfish</a>] - Kattowitzerstraße 2b - 41065 Mönchengladbach - contact@bugfish.eu </footer>
   </body>
 </html>

@@ -1,3 +1,7 @@
+![Mail](https://img.shields.io/badge/DNS-Software) 
+![SSL](https://img.shields.io/badge/SSL-Software)
+![Bugfish](https://img.shields.io/badge/Bugfish-Software) ![Server](https://img.shields.io/badge/Server-Software)
+
 # Dovecot-Certificate-Interface [DCI]
 
 For informations see the index.html file in the docs folder! You can open it with any webbrowser...
@@ -11,6 +15,8 @@ https://github.com/bugfishtm/Dovecot-Certificate-Interface
 My General Github Project Page is here:  
 https://bugfishtm.github.io
 
+## Example Image
+![plot](./_images/main.png)
 
 ## Issues
 If you encounter issues or have questions using this software, do not hesitate write us at our Forum on www.bugfish.eu/forum !
