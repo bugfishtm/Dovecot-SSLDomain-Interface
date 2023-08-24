@@ -1,4 +1,4 @@
-![Mail](https://img.shields.io/badge/DNS-Software) 
+![Mail](https://img.shields.io/badge/Mail-Software) 
 ![SSL](https://img.shields.io/badge/SSL-Software)
 ![Bugfish](https://img.shields.io/badge/Bugfish-Software) ![Server](https://img.shields.io/badge/Server-Software)
 
