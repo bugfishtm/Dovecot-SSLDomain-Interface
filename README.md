@@ -1,6 +1,6 @@
-![Mail](https://img.shields.io/badge/Mail-Software) 
-![SSL](https://img.shields.io/badge/SSL-Software)
-![Bugfish](https://img.shields.io/badge/Bugfish-Software) ![Server](https://img.shields.io/badge/Server-Software)
+![Bugfish](https://img.shields.io/badge/Bugfish-Software-orange)
+![Status](https://img.shields.io/badge/Status-Finished-green)
+![License](https://img.shields.io/badge/License-MIT-black)
 
 # Dovecot-Certificate-Interface [DCI]
 
