@@ -1,94 +1,119 @@
-<!doctype html>
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <!-- META RELATED -->
     <meta charset="utf-8">
-    <title>Dovecot-Certificate-Interface - Bugfish Documentation</title> <!------------------------------------>
-    <meta name="description" content="This panel is to control Domain Certificates Configuration inside Dovecot. So you can have valid SSL Connections to single Domains with your mail client. We wish you the best, if you encounter errors visist www.bugfish.eu!"> <!------------------------------------>
-    <meta name="author" content="Bugfish">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-	<link rel="icon" type="image/x-icon" href="favicon.ico">
-	<link rel="canonical" href="https://bugfishtm.github.io/Dovecot-Certificate-Interface/index.html" />
-	<meta property="og:title" content="Dovecot-Certificate-Interface - Bugfish Documentation" />
-	<meta property="og:url" content="https://bugfishtm.github.io/Dovecot-Certificate-Interface/index.html" />
-	<meta property="og:image" content="./meta.png" />
-	<link rel="stylesheet" href="./stylesheet.css">
-	 <script src="./jquery.js"></script> 
-	 <script src="./datatable.js"></script> 
-	 <script>
-		function internal_show(newshowvar, thiselement) {
-			$(".internal_show").hide();
-			$(".test").hide();
-			$("#"+newshowvar).show();
-			$(".navitts").css('color', '');
-			thiselement.css('color', '#ff0c02');
-		}
-		
-		
-		$( document ).ready(function() {
-			$(".internal_show").hide();
-			$("#show_info").show();
-			$(".startactivenav").css('color', '#ff0c02');
-		});		
-	 </script>
-  </head>
-  <body>
-<img src="logo.png" style="width: 100%; margin-bottom: -7px;">
-    <header id="header">
-	  
-      <h1>Dovecot-Certificate-Interface</h1> Informations and Documentation<!------------------------------------>
-      
-       <ul class="main-menu">
-        <li><a href="https://bugfishtm.github.io/index.html" >Back</a></li>
-        <li><a href="#" class="navon">DCI</a></li>
-        <li><a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" target="_blank">Github</a></li>
-        <li><a target="_blank" href="https://bugfish.eu">Bugfish</a></li>
-        <li><a href="./impressum.html">Impressum</a></li>
-        <li><a href="./privacy.html">Privacy</a></li>
-      </ul>              
-    </header>
-    <a href="#header"><div class="gobacktotop"><b>^ Back to Top</b></div></a>   
-    <div>
-            <div class="inner" style="text-align: left;">
-			
-			
-			This software has been tested on different linux system with postfix in standalone mode and with bind together if auto-domain-fetching for domain relaying is needed.<br />
-<b>Tested on:</b> Debian 8/9/10/11<br />
-<b>Tested on:</b> Ubuntu 16/18/20/22<br />
-<b>Tested on:</b> Different Dovecot Versions (Standalone)<br />
-<b>Tested on:</b> Different ISPConfig Versions (Auto-Fetch Domains and SSL Certs)<hr/>
-<h2>Table of Contents</h2>
-<a href="#general-functionality-informations">General Functionality Informations</a><br />
-- <a href="#about-this-software">About this Software</a><br />
-- <a href="#user-management">User Management</a><br />
-- <a href="#logging">Logging</a><br />
-- <a href="#debug">Debugging</a><br />
-- <a href="#sslvalidasd">SSL Validation</a><br />
-- <a href="#ispconfig">Use with ISPConfig</a><br />
-- <a href="#blacklisting">IP Blacklisting</a><br />
-<a href="#installation">Installation</a><br />
-- <a href="#setreq">Requirements</a><br />
-- <a href="#setsteps">Installation Steps</a><br />
-- <a href="#setset">Settings.php File</a><br />
-- <a href="#setcron">Setup Cronjobs</a><br />
-- <a href="#setccc">Dovecot.conf File</a><br />
-<a href="#default-login-for-webinterface">Default Login for Webinterface</a><br />	
-<a href="#issues">Issues</a><br />					 
-<a href="#links">Interesting URLs</a><br />					 
-<a href="#lic">License</a><br />					 
-			 <hr>
-<h2 id="general-functionality-informations" class="orangetext">General Functionality Informations</h2>
-This software is to enable dovecot per domain ssl certificates and manage / control them. Besides that it is designed to work automated together with ispconfig... Inside the webinterface are different informations in every areas which are there to help you using this software. I hope you will get an understanding about what this software was designed for and how you can get your use out of it. I wish you the best.
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+	<meta property="og:image" content="https://bugfishtm.github.io/assets/meta.png" />
+	<meta name="subject" content="documentation">
+	<meta name="copyright" content="bugfish">
+	<meta name='language' content='en'>
+	<meta name='robots' content='index,follow'>
+	<meta name='author' content='bugfish, ynvnzmlzaa@gmail.com'>
+	<!-- LINK RELATED -->
+	<script defer src="assets/fontawesome/js/all.min.js"></script>    
+	<link rel="stylesheet" href="assets/css/atom-one-dark.min.css">
+	<link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico">	
+	<link id="theme-style" rel="stylesheet" href="assets/css/stylesheet.css">
+    <script src="assets/js/jq.3.6.min.js"></script>	
+    <script src="assets/js/jquery.highlight.js"></script>
+    <script src="assets/js/jquery.scrollto.js"></script>
+    <script src="assets/js/jquery.finder.js"></script>
+	<!-- Descriptions -->
+    <title>Dovecot Certificate Interface [DCI] - BugfishDocs</title>
+	<meta property="og:title" content="Dovecot Certificate Interface [DCI] - BugfishDocs"/>
+	<meta name="description" content="This panel is to control Domain Certificates Configuration inside Dovecot. So you can have valid SSL Connections to single Domains with your mail client. We wish you the best, if you encounter errors visist www.bugfish.eu!">
+</head> 
+<body class="docs-page" data-finder-wrapper>    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="https://bugfishtm.github.io"><img class="logo-icon me-2" src="assets/logo.png" alt="logo" width="25"><span class="logo-text">Bugfish<span class="text-alt">Docs</span></span></a></div>    
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    <div class="docs-wrapper" >
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>Dovecot Certificate Interface</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Informations</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Installation</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-4">Initial Login</a></li>
+					<!-- Various Informations -->
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-9"><span class="theme-icon-holder me-2"><i class="fas fa-hashtag"></i></span>Various</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-9-1" target="_blank">How to get support?</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-9-2" target="_blank">License</a></li>
+					<!-- Impressum and Bugfish Link -->
+				    <li class="nav-item section-title mt-3"><a class="nav-link"><span class="theme-icon-holder me-2"><i class="fas fa-link"></i></span>Links</a></li>
+				    <li class="nav-item"><a class="nav-link" href="https://www.bugfish.eu" target="_blank">My Website</a></li>
+				    <li class="nav-item"><a class="nav-link" href="https://bugfishtm.github.io" target="_blank">Documentations</a></li>
+				    <li class="nav-item"><a class="nav-link" href="https://bugfishtm.blogspot.com/2023/05/impressum.html" target="_blank">Impressum</a></li>
+				    <li class="nav-item"><a class="nav-link" href="https://bugfishtm.blogspot.com/2023/05/privacy.html" target="_blank">Privacy</a></li>
+			    </ul>
+
+		    </nav><!--//docs-nav-->
+	    </div><!--//docs-sidebar-->
+	    <div class="docs-content" data-finder-content>
+		    <div class="container">
+			    <article class="docs-article" id="section-1">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Dovecot Certificate Interface [DCI]<span class="docs-time">Documentations</span></h1>
+					    <section class="docs-intro">
+						    <p>This is the Documentation for the Dovecot Certificate Interface [DCI] Websoftware!</p>
+						<a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface/archive/refs/heads/main.zip" class="btn btn-primary"  target="_blank"><i class="fas fa-download me-2"></i> Download</a>
+						<a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" class="btn btn-info" target="_blank"><i class="fas fa-link me-2" ></i> Github</a>
+						</section><!--//docs-intro-->
+				    </header>
+				    <section class="docs-section" id="item-1-1">
+
+<h2 id="mail-relaying-over-dns" class="orangetext">Informations</h2>
+This software is to enable dovecot per domain ssl certificates and manage / control them. Besides that it is designed to work automated together with ispconfig... Inside the webinterface are different informations in every areas which are there to help you using this software. I hope you will get an understanding about what this software was designed for and how you can get your use out of it. I wish you the best.<br /><br />
 
 <h3 id="about-this-software">About this Software</h3>
 <p>This software is designed to facilitate the configuration of Dovecot per Domain SSL Certificates. This feature allows users to log in to different domains with a mail client on their server with a valid certificate. In addition, this software can automate the ISP Config Dovecot Configuration File Generation for Valid SSL Domains. However, if the server already has another instance changing Dovecot configuration files (such as Plesk), using this software may result in system malfunction.</p>
 
+
+			This software has been tested on different linux system with postfix in standalone mode and with bind together if auto-domain-fetching for domain relaying is needed.<br />
+<b>Tested on:</b> Debian 8/9/10/11<br />
+<b>Tested on:</b> Ubuntu 16/18/20/22<br />
+<b>Tested on:</b> Different Dovecot Versions (Standalone)<br />
+<b>Tested on:</b> Different ISPConfig Versions (Auto-Fetch Domains and SSL Certs)<br /><br />
+
+<h3>Screenshots</h3> <br />
+
+<div class="simplelightbox-gallery row mb-3">
+							<div class="col-12 col-md-4 mb-3">
+						        <a href="main.png"><img class="figure-img img-fluid shadow rounded" src="main.png" alt="" title="Sreenshot of Domain Panel"></a>
+							</div>
+							<div class="col-12 col-md-4 mb-3">
+						        <a href="2.png"><img class="figure-img img-fluid shadow rounded" src="2.png" alt="" title="Screenshot Blacklisting Feature"></a>
+							</div><!--//col-->
+							<div class="col-12 col-md-4 mb-3">
+						        <a href="1.png"><img class="figure-img img-fluid shadow rounded" src="1.png" alt="" title="Image of User Management Panel"></a>
+							</div><!--//col-->
+						</div>
+
+<br />
+<h3 id="user-management">Changes on System Files</h3>
 <p>This software acts non-destructive. This means it does not change active configuration files, but only the file defined in settings.php with the constant: _CRON_DOVECOT_FILE_. The change you will do in the installation, which is to add a string to the dovecot.conf file at the end, can always be reverted and no other service oder changes will be made by the software which could break your system. If your dovecot process does not start at any time you use this software, this can only be related to the software in the case that the _CRON_DOVECOT_FILE_ is corrupted or bad written. (This does usually not happen by this software, because it does check every certificate for deep validation, but it can happen if you have other dovecot.conf files loaded and a domain may be duplicated in another one). It is not recommended to run this software together with plesk, virtualmin or every other hosting software which already has a working integration for dovecot per domain ssl connections. It is possible to use this panel standalone with no other hosting software in use, but you need to configure all dovecot settings by yourself. This script here will only create a file _CRON_DOVECOT_FILE_ which contains the config for the domains visible in the webinterface. It will not create or change other config files.</p>
-Example Image Domain Manager: <br /> <img src="./main.png"><br />
+
+
 
 <h3 id="user-management">User Management</h3>
 <p>This software includes user management capabilities. Users can be created, edited, and deleted, and different permissions for different areas can be assigned to them. Please note that if the administrator password is lost and no other user has access to the user management feature, the only way to regain access is to delete the websites _user database in the MySQL server or to change the password value of the administrative user inside that database tables "password" field to a new bcrypt generated string. You can generate this types of strings on my website if needed. Take a look in the apps section at www.bugfish.eu and look for a Module named similar to "PHP Password"...</p>
-Example Image User Manager: <br /> <img src="./1.png"><br />
+
 <h3 id="logging">Logging</h3>
 <p>The background work of cronjobs, such as writing the dovecot config file, can be viewed and monitored in the "logs" section of the web interface. The status of the sync.php and ispconfig-fetch.php cronjob can be viewed there. The latest entries of the different types are always the ones of interest, as the previous ones are expired but can be viewed as archived.</p>
 
@@ -104,8 +129,12 @@ Example Image User Manager: <br /> <img src="./1.png"><br />
 
 <h3 id="blacklisting">IP Blacklisting</h3>
 <p>After a specified number of failed login attempts (specified in the "settings.php" file), the IP address of the failed login user will be blocked. The IP will remain blocked until the daily.php cron is executed, or the IP is manually removed from the web interface. You can unblock IP Addresses in the "Blocklist" Area of the website.</p>
-Example Image Domain Manager: <br /> <img src="./2.png"><br />
-<hr>
+
+
+
+
+				   </section> <section class="docs-section" id="item-1-2">
+				   
 <h2 id="installation" class="orangetext">Installation</h2>
 <p>Before deploying the software, it is important to review the configuration/settings file of your instance. If the necessary settings have been correctly configured in the settings.php file, there should be no issues. However, please note that there is no guarantee, although this software has been used successfully in numerous production environments.</p>
 
@@ -131,8 +160,9 @@ Example Image Domain Manager: <br /> <img src="./2.png"><br />
 
 <b  id="setset">Setup settings.sample.php / settings.php (Mandatory):</b>
 <p>If you have uploaded the project files to the server (outside of the source directory), you will need to change the data in the settings.sample.php file and rename it to settings.php. This step is mandatory to make the software work, as you need to provide valid MySQL user data. Below is a list of settings in the PHP file:</p>
-
-<table>
+				   
+				   
+<table class="table table-bordered table-dark">
 <thead>
 <tr>
 <th>Constant</th>
@@ -193,7 +223,7 @@ Example Image Domain Manager: <br /> <img src="./2.png"><br />
 
 <p><br /><b id="setcron">Setup Cronjobs:</b></p>
 <p>To make this software work, you need at least the sync.php in the _cronjob folder of this project executing at some time. This cronjob will do all the background work, and the webinterface and the domains status will be updated everytime the sync.php cronjob does run.</p>
-<table>
+<table class="table table-bordered table-dark">
 <thead>
 <tr>
 <th>Command</th>
@@ -214,7 +244,7 @@ Example Image Domain Manager: <br /> <img src="./2.png"><br />
 </tr>
 </tbody>
 </table>
-<table>
+<table class="table table-bordered table-dark">
 
 <p><b>ISP Config Domain Fetch Cronjob (optional)</b><br /></p>
 <p>This cronjob is optional for users, which want to automate fetch domain with certificate paths from isp config webroot folder. You dont need it if you are using this software without ispconfig.</p>
@@ -241,54 +271,70 @@ Example Image Domain Manager: <br /> <img src="./2.png"><br />
 
 
 <p><b id="setccc">Edit /etc/dovecot/dovecot.conf</b><br /></p>
-<p><font color="red">This is mandatory to make this script work!</font><br />Add this to the end of the file: "!include_try dci.certs.conf" (without qoutes) </p><br />
+<p><font color="red">This is mandatory to make this script work!</font><br />Add this to the end of the file: "!include_try dci.certs.conf" (without qoutes) </p><br />				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   </section>
+				   
+				   	</section> <section class="docs-section" id="item-1-4">
+<h2 id="default-login-for-webinterface" class="orangetext">Default Login for Webinterface</h2>
+<div class="alert alert-danger"><b>Change the initial password after you have succesfully authenticated the first time!</b></div>
+<p>Username: admin<br>Passwort: changeme</p>					
+					
+					</section>
+			    </article>
+			    <article class="docs-article" id="section-9" style="padding-top: 0px;">
+					<header class="docs-header">
+					    <h2 class="docs-heading">Various</h2>
+					    <section class="docs-intro">
+						    <p>Here you can see various pages with licensing and support informations!</p>
+						</section><!--//docs-intro-->
+				    </header>
+					<section class="docs-section" id="item-9-1" style="padding-top: 0px;">
+						<h2 class="section-heading">How to get support?</h2>
+						<p>There are different ways to get support for our products. You can write comments in our specific websites section for the related product, but the best way it to write in our forum, as we are getting notifications about that! So if you need any help, sign in at our forum and we will do what we can to serve you. If you do not want to register at our forum, you are invited to write us for support at requests@bugfish.eu.</p>
+						<a href="https://www.bugfish.eu" class="btn btn-primary" target="_blank"><i class="fas fa-link me-2"></i> My Website</a>
+						<a href="https://forum.bugfish.eu/" class="btn btn-warning" target="_blank"><i class="fas fa-bug me-2"></i> My Forum</a>
+					</section><!--//section-->	
+					<section class="docs-section" id="item-9-2">
+						<h2 class="section-heading">License Informations</h2>
+						<h4>License Informations of this Software Code</h4>
+		Copyright 2022 www.bugfish.eu Jan-Maurice Dahlmanns (Bugfish)<br />
+		This Product is running with MIT LICENSE<br /><br />
 
-<hr><h2 id="default-login-for-webinterface" class="orangetext">Default Login for Webinterface</h2>
-<p>Username: admin<br>Passwort: changeme</p>
-<hr>
+		Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br /><br />
 
-<h2 id="issues" class="orangetext">Issues</h2>
-<p>If you encounter issues or have questions using this software, do not hesitate write us at our Forum on <a href="https://www.bugfish.eu/forum" rel="noopener" target="_blank">www.bugfish.eu/forum</a>!</p>
+		The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br /><br />
 
-
-<hr><h2 id="links"  class="orangetext">Interesting URLs</h2><ul>
-<li>You can find the Documentation here:  </li>
-<a href="https://bugfishtm.github.io/Dovecot-Certificate-Interface/" rel="noopener" target="_blank">https://bugfishtm.github.io/Dovecot-Certificate-Interface</a><br /><br />
-
-
-<li>You can find the Github Repository here:</li>
-<a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" rel="noopener" target="_blank">https://github.com/bugfishtm/Dovecot-Certificate-Interface</a><br /><br />
-
-<li>Visit my website on:  </li>
-<a href="https://bugfish.eu" rel="noopener" target="_blank">https://bugfish.eu  </a><br /><br />
-
-
-<li>This is my Blogspot website:  </li>
-<a href="https://bugfishtm.blogspot.com/" rel="noopener" target="_blank">https://bugfishtm.blogspot.com/</a><br /><br />
-
-<li>My Personal Github Page with my Projects:  </li>
-<a href="https://bugfishtm.github.io" rel="noopener" target="_blank">https://bugfishtm.github.io</a><br /><br /></ul>
-
-<hr><h2 id="lic"  class="orangetext">License</h2>
-Copyright 2023 Jan-Maurice Dahlmanns (Bugfish)<br />
-MIT LICENSE<br /><br />
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br /><br />
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br /><br />
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-<hr>
-<p>more at www.bugfish.eu<br>Made by Jan-Maurice Dahlmanns</p>
-			 
-			 
-			 
-			 
-			 
-			 
-</div>
-
-    </div>
-  </body>
-</html>
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br /><br />
+						<h4>License Informations of this Github Page</h4>
+				       <p> <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+			            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://themes.3rdwavemedia.com" target="_blank" rel="noopener">Xiaoying Riley</a> for developers <br/>(And modified by <a href="https://www.bugfish.eu" target="_blank" rel="noopener">bugfish</a>)<br />You are only allowed to use this template if you include this attribution!</small></p>					
+					</section><!--//section-->		
+			    </article><!--//docs-article-->
+			</div> <!--//docs-container--> 
+		</div><!--//docs-content-->   
+    </div><!--//docs-wrapper-->       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="assets/js/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+</body>
+</html> 
