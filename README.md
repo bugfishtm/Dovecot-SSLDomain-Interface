@@ -7,6 +7,22 @@
 
 This software is to enable dovecot per domain ssl certificates and manage / control them. Besides that it is designed to work automated together with ispconfig... Inside the webinterface are different informations in every areas which are there to help you using this software. I hope you will get an understanding about what this software was designed for and how you can get your use out of it. I wish you the best.
 
+## Documentation
+
+For informations see the index.html file in the docs folder! You can open it with any webbrowser...
+
+You can find the Documentation here:  
+https://bugfishtm.github.io/Dovecot-Certificate-Interface/  
+
+You can find the Github Page here:  
+https://github.com/bugfishtm/Dovecot-Certificate-Interface  
+
+My General Github Project Page is here:  
+https://bugfishtm.github.io
+
+
+## Example Image
+![plot](./_images/1.png)
 
 ## Changes on System Files
 
@@ -37,18 +53,7 @@ This script is able to automate the certificate config creation of dovecot for s
 After a specified number of failed login attempts (specified in the "settings.php" file), the IP address of the failed login user will be blocked. The IP will remain blocked until the daily.php cron is executed, or the IP is manually removed from the web interface. You can unblock IP Addresses in the "Blocklist" Area of the website.
 
 
-## Documentation
 
-For informations see the index.html file in the docs folder! You can open it with any webbrowser...
-
-You can find the Documentation here:  
-https://bugfishtm.github.io/Dovecot-Certificate-Interface/  
-
-You can find the Github Page here:  
-https://github.com/bugfishtm/Dovecot-Certificate-Interface  
-
-My General Github Project Page is here:  
-https://bugfishtm.github.io
 
 ## Example Image
 ![plot](./_images/main.png)
