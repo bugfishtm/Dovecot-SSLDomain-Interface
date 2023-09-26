@@ -52,8 +52,8 @@
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Installation</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-4">Initial Login</a></li>
 					<!-- Various Informations -->
-				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-9"><span class="theme-icon-holder me-2"><i class="fas fa-hashtag"></i></span>Various</a></li>
-				    <li class="nav-item"><a class="nav-link scrollto" href="#item-9-1" target="_blank">How to get support?</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-9"><span class="theme-icon-holder me-2"><i class="fas fa-hashtag"></i></span>Additional Informations</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-9-1" target="_blank">Support</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-9-2" target="_blank">License</a></li>
 					<!-- Impressum and Bugfish Link -->
 				    <li class="nav-item section-title mt-3"><a class="nav-link"><span class="theme-icon-holder me-2"><i class="fas fa-link"></i></span>Links</a></li>
@@ -77,20 +77,18 @@
 						</section><!--//docs-intro-->
 				    </header>
 				    <section class="docs-section" id="item-1-1">
-
+<style>.table-dark { font-size: 14px !important; }</style>
 <h2 id="mail-relaying-over-dns" class="orangetext">Informations</h2>
 This software is to enable dovecot per domain ssl certificates and manage / control them. Besides that it is designed to work automated together with ispconfig... Inside the webinterface are different informations in every areas which are there to help you using this software. I hope you will get an understanding about what this software was designed for and how you can get your use out of it. I wish you the best.<br /><br />
-<b>Introduction Video</b><br />
- <video width="320" height="240" controls>
+<b>Introduction Videos</b><br />
+ <video width="320" height="240" style="padding: 15px;" controls>
   <source src="./introduction.mp4" type="video/mp4">
   Your browser does not support the video tag.
-</video>  <br />
-<a href="./introduction.mp4">Download Introduction Video</a> | <a href="./presentation.pptx">Download Presentation</a><br /> <br />
-<b>Advanced Information Video</b><br />
-<video width="320" height="240" controls>
+</video>  <video width="320" height="240" style="padding: 15px;" controls>
   <source src="./information.mp4" type="video/mp4">
   Your browser does not support the video tag.
-</video> <br />
+</video><br />
+<a href="./introduction.mp4">Download Introduction Video</a> | <a href="./presentation.pptx">Download Presentation</a>  |  
 <a href="./information.mp4">Download Information Video</a><br /><br />
 
 <h3 id="about-this-software">About this Software</h3>
@@ -170,7 +168,7 @@ This software is to enable dovecot per domain ssl certificates and manage / cont
 <li>It is crucial to change the dovecot.conf file as described in the documentation below.</li>
 </ul>
 
-<b  id="setset">Setup settings.sample.php / settings.php (Mandatory):</b>
+<br /><h4>Setup settings.sample.php / settings.php (Mandatory):</h4>
 <p>If you have uploaded the project files to the server (outside of the source directory), you will need to change the data in the settings.sample.php file and rename it to settings.php. This step is mandatory to make the software work, as you need to provide valid MySQL user data. Below is a list of settings in the PHP file:</p>
 				   
 				   
@@ -233,7 +231,7 @@ This software is to enable dovecot per domain ssl certificates and manage / cont
 </tbody>
 </table>
 
-<p><br /><b id="setcron">Setup Cronjobs:</b></p>
+<br /><h4 id="setcron">Setup Cronjobs:</h4>
 <p>To make this software work, you need at least the sync.php in the _cronjob folder of this project executing at some time. This cronjob will do all the background work, and the webinterface and the domains status will be updated everytime the sync.php cronjob does run.</p>
 <table class="table table-bordered table-dark">
 <thead>
@@ -258,7 +256,7 @@ This software is to enable dovecot per domain ssl certificates and manage / cont
 </table>
 <table class="table table-bordered table-dark">
 
-<p><b>ISP Config Domain Fetch Cronjob (optional)</b><br /></p>
+<br /><h4>ISP Config Domain Fetch Cronjob (optional)</h4>
 <p>This cronjob is optional for users, which want to automate fetch domain with certificate paths from isp config webroot folder. You dont need it if you are using this software without ispconfig.</p>
 <thead>
 <tr>
@@ -282,7 +280,7 @@ This software is to enable dovecot per domain ssl certificates and manage / cont
 
 
 
-<p><b id="setccc">Edit /etc/dovecot/dovecot.conf</b><br /></p>
+<br /><h4>Edit /etc/dovecot/dovecot.conf</h4>
 <p><font color="red">This is mandatory to make this script work!</font><br />Add this to the end of the file: "!include_try dci.certs.conf" (without qoutes) </p><br />				   
 				   
 				   
@@ -306,31 +304,28 @@ This software is to enable dovecot per domain ssl certificates and manage / cont
 					
 					</section>
 			    </article>
-			    <article class="docs-article" id="section-9" style="padding-top: 0px;">
-					<header class="docs-header">
-					    <h2 class="docs-heading">Various</h2>
+			    <article class="docs-article" id="section-9" >
+				    <header class="docs-header">
+					    <h2 class="docs-heading">Additional Informations</h2>
 					    <section class="docs-intro">
-						    <p>Here you can see various pages with licensing and support informations!</p>
-						</section><!--//docs-intro-->
+						    <p>Here you can see various informations about licenses and how to get support related to this product. Do not hesitate to give us feedback about your user experience or critique about our software.</p>
+						</section>
 				    </header>
-					<section class="docs-section" id="item-9-1" style="padding-top: 0px;">
-						<h2 class="section-heading">How to get support?</h2>
+					<section class="docs-section" id="item-9-1" style="padding-top: 0px; border-bottom: none;">
+						<br /><h2 class="section-heading">Support</h2>
 						<p>There are different ways to get support for our products. You can write comments in our specific websites section for the related product, but the best way it to write in our forum, as we are getting notifications about that! So if you need any help, sign in at our forum and we will do what we can to serve you. If you do not want to register at our forum, you are invited to write us for support at requests@bugfish.eu.</p>
 						<a href="https://www.bugfish.eu" class="btn btn-primary" target="_blank"><i class="fas fa-link me-2"></i> My Website</a>
 						<a href="https://bugfish.eu/forum" class="btn btn-warning" target="_blank"><i class="fas fa-bug me-2"></i> My Forum</a>
-					</section><!--//section-->	
-					<section class="docs-section" id="item-9-2">
+					</section>
+					<section class="docs-section" id="item-9-2" style="border-bottom: none;">
 						<h2 class="section-heading">License Informations</h2>
-						<h4>License Informations of this Software Code</h4>
-		Copyright 2022 www.bugfish.eu Jan-Maurice Dahlmanns (Bugfish)<br />
-		This Product is running with MIT LICENSE<br /><br />
-
-		Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br /><br />
-
-		The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br /><br />
-
-		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br /><br />
-						<h4>License Informations of this Github Page</h4>
+						<br /><h4>Image Downloader License</h4>
+						<p>Copyright 2023 www.bugfish.eu Jan-Maurice Dahlmanns (Bugfish)<br />
+						This Product is running with MIT LICENSE<br /><br />
+						Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br /><br />
+						The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br /><br />
+						THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.		</p>
+						<br /><h4>This Github Page Templates License</h4>
 				       <p> <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
 			            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://themes.3rdwavemedia.com" target="_blank" rel="noopener">Xiaoying Riley</a> for developers <br/>(And modified by <a href="https://www.bugfish.eu" target="_blank" rel="noopener">bugfish</a>)<br />You are only allowed to use this template if you include this attribution!</small></p>					
 					</section><!--//section-->		
