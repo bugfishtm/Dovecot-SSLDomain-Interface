@@ -1,7 +1,7 @@
 ![Bugfish](https://img.shields.io/badge/Bugfish-Software-orange)
 ![Status](https://img.shields.io/badge/Status-Finished-green)
 ![License](https://img.shields.io/badge/License-MIT-black)
-![Version](https://img.shields.io/badge/Version-1.1-white)
+![Version](https://img.shields.io/badge/Version-1.2-white)
 
 Repository: https://github.com/bugfishtm/Dovecot-Certificate-Interface  
 Documentation: https://bugfishtm.github.io/Dovecot-Certificate-Interface/  

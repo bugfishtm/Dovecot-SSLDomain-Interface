@@ -60,7 +60,7 @@
 	
 	# Some Variables
 	define('_HELP_',    "https://bugfishtm.github.io/Dovecot-Certificate-Interface/");
-	define("_FOOTER_", '<div id="footer">DCIv1.1 by <a href="https://bugfish.eu/aboutme" target="_blank" rel="noopeener">Bugfish</a> | <a href="'._IMPRESSUM_.'" target="_blank" rel="noopeener">Impressum</a> | <a href="'._HELP_.'" target="_blank" rel="noopeener">Help</a>');	
+	define("_FOOTER_", '<div id="footer">DCIv1.2 by <a href="https://bugfish.eu/aboutme" target="_blank" rel="noopeener">Bugfish</a> | <a href="'._IMPRESSUM_.'" target="_blank" rel="noopeener">Impressum</a> | <a href="'._HELP_.'" target="_blank" rel="noopeener">Help</a>');	
 	
 	/* Rebuild Table Structure */		
 	$mysql->query("CREATE TABLE IF NOT EXISTS `"._TABLE_DOMAIN_."` (
