@@ -1,15 +1,13 @@
 ![Bugfish](https://img.shields.io/badge/Bugfish-Software-orange)
 ![Status](https://img.shields.io/badge/Status-Finished-green)
 ![License](https://img.shields.io/badge/License-MIT-black)
-![Version](https://img.shields.io/badge/Version-1.2-white)
+![Version](https://img.shields.io/badge/Version-1.2.0-white)
 
 Repository: https://github.com/bugfishtm/Dovecot-Certificate-Interface  
 Documentation: https://bugfishtm.github.io/Dovecot-Certificate-Interface/  
 The documentation is available in the "docs" folder inside this repositorie!
 
 # Dovecot-Certificate-Interface [DCI]
-
-
 
 This software is to enable dovecot per domain ssl certificates and manage / control them. Besides that it is designed to work automated together with ispconfig... Inside the webinterface are different informations in every areas which are there to help you using this software. I hope you will get an understanding about what this software was designed for and how you can get your use out of it. I wish you the best.
 
@@ -47,16 +45,19 @@ After a specified number of failed login attempts (specified in the "settings.ph
 ## Example Image
 ![plot](./_images/main.png)
 
-## Issues
-If you encounter issues or have questions using this software, do not hesitate write us at our Forum on www.bugfish.eu/forum! Besides that you can request help at request@bugfish.eu. We will do the best to provide support!
-
 ## Default Login for Webinterface
 Username: admin  
 Passwort: changeme
 
-----------------------------------------------------------------
-more at www.bugfish.eu   
-Made by Jan-Maurice Dahlmanns
+## Support and Assistance
+
+If you encounter any issues or require assistance, please visit [bugfish.eu/forum](https://www.bugfish.eu/forum) for additional resources. You can also contact us at [request@bugfish.eu](mailto:request@bugfish.eu), and we will do our best to assist you.
+
+This Android WebApp Example project offers a convenient way to deploy customized apps related to your website, enhancing your online presence and user experience.
+
+## License Information
+
+The license details for this Dovecot-Certificate-Interface project can be found in the "license.md" file within the project repository. Please review this file to understand the terms and conditions of use and distribution. It is essential to comply with the project's license to ensure legal and ethical usage of the provided resources.
 
 
 
