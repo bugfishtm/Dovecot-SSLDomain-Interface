@@ -1,0 +1,1086 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="download.html">
+      
+      
+        <link rel="next" href="contributing.html">
+      
+      
+      <link rel="icon" href="favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>Installation - Dovecot Certificate Interface</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+   <!-- META INJECTION START -->
+  <!-- META INJECTION START -->
+  <!-- META INJECTION START -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="subject" content="documentation">
+	<meta name="copyright" content="bugfish">
+	<meta name="language" content="en">
+	<meta name="robots" content="index,follow">
+	<meta name="author" content="bugfish, ynvnzmlzaa@gmail.com">
+	<meta property="og:image" content="./meta.png">    
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "Repository Template",
+    }
+    </script>
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "TechArticle",
+	  "headline": "Installation",
+	  "description": "Follow our step-by-step guide to install and configure the Dovecot Certificate Interface (DCI). Ensure a smooth setup with detailed instructions and system requirements.",
+	  "articleSection": "Installation",
+	  "datePublished": "2025-03-04",
+	  "dateModified": "2025-03-04",
+	  "author": {
+		"@type": "Person",
+		"name": "Jan-Maurice Dahlmanns"
+	  },
+	  "publisher": {
+		"@type": "Organization",
+		"name": "Bugfish",
+		"logo": {
+		  "@type": "ImageObject",
+		  "url": "./logo.png"
+		}
+	  }
+	}
+	</script> 
+	<meta property="og:title" content="Installation - Repository Template">
+	<meta name="description" content="Follow our step-by-step guide to install and configure the Dovecot Certificate Interface (DCI). Ensure a smooth setup with detailed instructions and system requirements.">  
+	<meta name="og:description" content="Follow our step-by-step guide to install and configure the Dovecot Certificate Interface (DCI). Ensure a smooth setup with detailed instructions and system requirements.">  
+  <!-- META INJECTION END -->  
+  <!-- META INJECTION END -->  
+  <!-- META INJECTION END -->     
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#software-installation-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Dovecot Certificate Interface" class="md-header__button md-logo" aria-label="Dovecot Certificate Interface" data-md-component="logo">
+      
+  <img src="logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dovecot Certificate Interface
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Dovecot-Certificate-Interface
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Dovecot Certificate Interface" class="md-nav__button md-logo" aria-label="Dovecot Certificate Interface" data-md-component="logo">
+      
+  <img src="logo.png" alt="logo">
+
+    </a>
+    Dovecot Certificate Interface
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bugfishtm/Dovecot-Certificate-Interface" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Dovecot-Certificate-Interface
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="screenshots.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Screenshots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tutorials.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="download.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="installation.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apache-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apache Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#php-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      PHP Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation Procedure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Initial Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cronjob-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cronjob Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cronjob Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory-cronjobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mandatory Cronjobs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-isp-config-domain-fetch-cronjob" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional ISP Config Domain Fetch Cronjob
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-dovecot-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit Dovecot Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Login
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="warranty.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Warranty
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://bugfishtm.blogspot.com/2023/05/impressum.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Impressum
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://bugfishtm.blogspot.com/2023/05/privacy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Privacy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apache-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apache Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#php-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      PHP Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation Procedure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Initial Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cronjob-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cronjob Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cronjob Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory-cronjobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mandatory Cronjobs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-isp-config-domain-fetch-cronjob" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional ISP Config Domain Fetch Cronjob
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-dovecot-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit Dovecot Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Login
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div><h1 id="software-installation-guide">Software Installation Guide</h1>
+<h2 id="general-information">General Information</h2>
+<p>Before deploying the software, review the configuration/settings file for your instance. Ensure that the <code>settings.php</code> file is correctly configured. While this software has been successfully used in many production environments, there are no absolute guarantees. </p>
+<p>This software has been tested on Ubuntu and Debian systems, though it may work on other systems that have not been tested. If using a system other than Debian or Ubuntu, you might need to adjust deeper settings within the <code>settings.php</code> file. This software is optimized for Debian/Ubuntu with Apache and PHP 8. Below are the requirements and installation steps to follow:</p>
+<h2 id="requirements">Requirements</h2>
+<p>To ensure smooth operation of the web software alongside Dovecot for managing mail SSL certificates, the following requirements must be met:</p>
+<h3 id="server-dependencies">Server Dependencies</h3>
+<ul>
+<li><strong>Root permissions</strong> for cronjobs on the system.</li>
+<li><strong>Dovecot</strong>: Ensure that Dovecot is installed and properly configured on your server.</li>
+<li><strong>OpenSSL</strong>: Required for handling SSL/TLS certificates.</li>
+<li><strong>Postfix</strong> (or an equivalent MTA): For handling outgoing mail.</li>
+<li><strong>Web Server</strong>: Apache, Nginx, or any compatible server for hosting the web software.</li>
+<li><strong>MySQL database</strong>: Connection and user credentials (configured in <code>settings.php</code>).</li>
+</ul>
+<h3 id="apache-requirements">Apache Requirements</h3>
+<ul>
+<li><strong>Apache2</strong> web server with PHP 7/8 support.</li>
+<li><strong>Apache2 modules</strong>: <code>rewrite</code>.</li>
+</ul>
+<h3 id="php-requirements">PHP Requirements</h3>
+<ul>
+<li><strong>PHP Version</strong>: 8.X</li>
+<li><strong>PHP modules</strong>: <code>mysqli</code>, <code>curl</code>, <code>intl</code>, <code>mbstring</code>, <code>gd</code>.</li>
+</ul>
+<h3 id="system-requirements">System Requirements</h3>
+<ul>
+<li><strong>Operating System</strong>: Linux-based OS (e.g., Ubuntu, CentOS, Debian) is recommended.</li>
+<li><strong>RAM</strong>: Minimum of 1GB.</li>
+<li><strong>Disk Space</strong>: At least 10GB of free space for logs, emails, and software.</li>
+</ul>
+<h2 id="installation-procedure">Installation Procedure</h2>
+<ol>
+<li><strong>Upload Files</strong>: Upload the files from the "source" directory of this repository to your web space.</li>
+<li><strong>Configure Settings</strong>: Check the <code>settings.sample.php</code> file and make the necessary changes. Set your MySQL login credentials in the <code>settings.php</code> file. </li>
+<li><strong>Rename Configuration File</strong>: Rename <code>settings.sample.php</code> to <code>settings.php</code>.</li>
+<li><strong>Automatic SQL Tables</strong>: The software will automatically create any required SQL tables when the website is first opened. An initial user will be created, and login credentials will be provided at the end of this guide.</li>
+<li><strong>Setup Cronjob</strong>: Configure the cronjob as described below. Without it, Dovecot configuration will not be written.</li>
+<li><strong>Edit Dovecot Configuration</strong>: It is crucial to modify the <code>dovecot.conf</code> file as described in the documentation below.</li>
+</ol>
+<h2 id="initial-setup">Initial Setup</h2>
+<p>After uploading the project files to the server (outside of the source directory), modify the <code>settings.sample.php</code> file as needed and rename it to <code>settings.php</code>. This step is mandatory to ensure the software functions correctly, as valid MySQL user data is required.</p>
+<h3 id="configuration-settings">Configuration Settings</h3>
+<p>Below is a list of settings you can configure in the <code>settings.php</code> file:</p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_TITLE_</code></td>
+<td>Set the website title, which will be shown in your browser tab.</td>
+</tr>
+<tr>
+<td><code>_IMPRESSUM_</code></td>
+<td>Link to your impressum page, accessible from the footer.</td>
+</tr>
+<tr>
+<td><code>_SQL_HOST_</code></td>
+<td>SQL Database Host.</td>
+</tr>
+<tr>
+<td><code>_SQL_USER_</code></td>
+<td>SQL Database User.</td>
+</tr>
+<tr>
+<td><code>_SQL_PASS_</code></td>
+<td>SQL Database Password.</td>
+</tr>
+<tr>
+<td><code>_SQL_DB_</code></td>
+<td>SQL Database name.</td>
+</tr>
+<tr>
+<td><code>_IP_BLACKLIST_DAILY_OP_LIMIT_</code></td>
+<td>IP blacklist limit for blocking IPs (default is 1000). Reset daily if the cronjob <code>daily.php</code> is executed.</td>
+</tr>
+<tr>
+<td><code>_CSRF_VALID_LIMIT_TIME_</code></td>
+<td>Validity period of a CSRF key for form validation (default is 1000 seconds).</td>
+</tr>
+<tr>
+<td><code>_MYSQL_LOGGING_</code></td>
+<td>Set to "true" to enable MySQL logging and the debug area in the web interface. Set to "false" to disable.</td>
+</tr>
+<tr>
+<td><code>_COOKIES_</code></td>
+<td>Cookie prefix. No need to change unless you are familiar with the implications.</td>
+</tr>
+<tr>
+<td><code>_CRON_DOVECOT_FILE_</code></td>
+<td>Path to the Dovecot configuration file for SSL certificate/domain settings. Include this in <code>dovecot.conf</code>.</td>
+</tr>
+<tr>
+<td><code>_CRON_ISP_FOLDER_SEARCH_</code></td>
+<td>Path for fetching subfolder names from ISPConfig (only needed if using ISPConfig).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cronjob-setup">Cronjob Setup</h2>
+<p>To ensure the software operates correctly, configure the following cronjobs:</p>
+<h3 id="mandatory-cronjobs">Mandatory Cronjobs</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Interval</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_webroot_/_cronjob/daily.php</code></td>
+<td>Daily</td>
+<td>Resets blacklisted IPs (optional but recommended).</td>
+</tr>
+<tr>
+<td><code>_webroot_/_cronjob/sync.php</code></td>
+<td>X</td>
+<td>Executes all domain and Dovecot related operations. Recommended interval: hourly. This is mandatory.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="optional-isp-config-domain-fetch-cronjob">Optional ISP Config Domain Fetch Cronjob</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Interval</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_webroot_/_cronjob/ispconfig_fetch.php</code></td>
+<td>X</td>
+<td>Fetches SSL certificates and domains from ISPConfig webroot folders. Only needed if using ISPConfig.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="edit-dovecot-configuration">Edit Dovecot Configuration</h2>
+<p><strong>Important:</strong> Modify the <code>dovecot.conf</code> file to make the script work. Add the following line to the end of the file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>!include_try dci.certs.conf
+</span></code></pre></div>
+<h2 id="initial-login">Initial Login</h2>
+<p>After successfully deploying the software, log in with the following credentials:</p>
+<ul>
+<li><strong>Username</strong>: admin</li>
+<li><strong>Password</strong>: changeme</li>
+</ul>
+<p><strong>Important:</strong> Change the initial password after the first successful login.</p></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="extra.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
